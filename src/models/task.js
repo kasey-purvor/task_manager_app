@@ -18,6 +18,9 @@ const taskSchema = mongoose.Schema(
             ref: 'User' // this stands for reference and will fill the field with the entire 'user' related 
         }
     
+    },
+    {
+        timestamps: true
     }
 )
 

@@ -7,7 +7,7 @@ const auth = require('../middleware/authentication')
 router.post('/tasks', auth, (req, res) => {
     const task = new Task({
         ...req.body,
-        owner: req.user._id
+        owner: req.user._id // req.user is created in the Auth middleware if you are wondering how that works. 
     })
     async function saveTask() {
         try {
@@ -27,7 +27,7 @@ router.get('/tasks', auth, (req, res) => {
         try {
             // const tasks = await Task.find({owner: req.user._id})
             // res.status(200).send(tasks)
-            // orrr ou could use the new ref property from mongoose
+            // orrr you could use the new ref property from mongoose
             await req.user.populate('tasks')
             res.status(200).send(req.user.tasks)
  
@@ -38,20 +38,17 @@ router.get('/tasks', auth, (req, res) => {
     getAllTasks()
 })
 
-router.get('/tasks/:id', auth, (req, res) => {
+router.get('/tasks/:id', auth, async (req, res) => {
     const _id = req.params.id;
-    async function getTaskById() {
-        try {
-            const task = await Task.findOne({_id, owner: req.user._id})
-            if (!task) {
-                return res.status(404).send("task not found")
-            }
-            res.status(201).send(task)
-        } catch (e) {
-            res.status(400).send(e)
+    try {
+        const task = await Task.findOne({_id, owner: req.user._id})
+        if (!task) {
+            return res.status(404).send("task not found")
         }
+        res.status(201).send(task)
+    } catch (e) {
+        res.status(400).send(e)
     }
-    getTaskById()
 })
 
 router.patch('/tasks/:id', auth, async (req, res) => {
