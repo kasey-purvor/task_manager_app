@@ -22,20 +22,29 @@ router.post('/tasks', auth, (req, res) => {
     saveTask()
 })
 
-router.get('/tasks', auth, (req, res) => {
-    async function getAllTasks() {
-        try {
-            // const tasks = await Task.find({owner: req.user._id})
-            // res.status(200).send(tasks)
-            // orrr you could use the new ref property from mongoose
-            await req.user.populate('tasks')
-            res.status(200).send(req.user.tasks)
- 
-        } catch (e){
-            res.status(400).send(e)
-        }
+router.get('/tasks', auth, async (req, res) => { 
+    match = {}
+
+    if (req.query.completed) {
+        match.completed = req.query.completed === "true"
     }
-    getAllTasks()
+    
+    try {
+        // const tasks = await Task.find({
+        //     owner: req.user._id,
+        //     completed: match.completed
+        // })
+        // res.status(200).send(tasks)
+        // orrr you could use the new ref property from mongoose
+        await req.user.populate({
+            path : 'tasks',
+            match
+    })
+        res.status(200).send(req.user.tasks)
+
+    } catch (e){
+        res.status(400).send(e)
+    }
 })
 
 router.get('/tasks/:id', auth, async (req, res) => {
