@@ -22,13 +22,19 @@ router.post('/tasks', auth, (req, res) => {
     saveTask()
 })
 
+// sort=field_asc
 router.get('/tasks', auth, async (req, res) => { 
-    match = {}
-
+    const match = {}
+    const sort = {}
+    
     if (req.query.completed) {
         match.completed = req.query.completed === "true"
     }
-    
+    if(req.query.sort) {
+        const sort_def = req.query.sort.split("_")
+        sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1
+        console.log(sort)
+    } 
     try {
         // const tasks = await Task.find({
         //     owner: req.user._id,
@@ -38,7 +44,12 @@ router.get('/tasks', auth, async (req, res) => {
         // orrr you could use the new ref property from mongoose
         await req.user.populate({
             path : 'tasks',
-            match
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort
+            }
     })
         res.status(200).send(req.user.tasks)
 

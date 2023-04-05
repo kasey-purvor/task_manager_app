@@ -4,6 +4,35 @@ require('../db/mongoose')
 const User = require('../models/user')
 const Task = require('../models/task')
 const auth = require('../middleware/authentication')
+const multer = require('multer')
+
+//upload user avatar
+const upload = multer({
+    // dest: 'avatars', // this overides the default of multer, which is attaching the upload to the req object. 
+    limits: {
+        filesize: 4000000
+    },
+    fileFilter(req, file, cb) {
+        if(!file.originalname.endsWith('.jpg' || '.jpeg' || 'png')) {
+            return cb(new Error("Please provide png, jpg, or jpeg filetype"))
+        }
+        cb(undefined, true)
+    }
+})
+userRouter.post('/users/me/avatar', auth,  upload.single("avatar"), async (req, res) => {
+    req.user.avatar = req.file.buffer
+    await req.user.save()
+    res.status(200).send()
+}, (error, req, res, next) => {
+    res.status(400).send({"error" : error.message }),
+    next()
+})
+
+userRouter.delete('/users/me/avatar', auth, async(req,res) => {
+    req.user.avatar = undefined
+    await req.user.save()
+    res.status(200).send()
+})
 
 //post new user
 userRouter.post("/users", (req, res) => {

@@ -4,51 +4,56 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Task = require('./task')
 
-const userSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    age: {
-        type: Number,
-        required: true,
-        default: 0,
-        validate(value) {
-            if (value < 0) {
-                throw new Error("Age must be a positive number")
-            }
-        }
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        validate(value) { // this is a custom validator 
-            if (!validator.isEmail(value)) { // here the npm validator is used to check for valid emails 
-                throw new Error("Email is invalid");
-            }
-        }
-    },
-    password: {
-        type: String,
-        required: true,
-        trim: true,
-        minLength: 6,
-        validate(value) {
-            if (value.toLowerCase().includes("password")) {
-                throw new Error("Password cannot contain the word 'password'")
-            }
-        }
-    },
-    tokens: [{
-        token: {
+const userSchema = mongoose.Schema(
+    {
+        name: {
             type: String,
-            required: true
+            required: true,
+            trim: true
+        },
+        age: {
+            type: Number,
+            required: true,
+            default: 0,
+            validate(value) {
+                if (value < 0) {
+                    throw new Error("Age must be a positive number")
+                }
+            }
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+            lowercase: true,
+            validate(value) { // this is a custom validator 
+                if (!validator.isEmail(value)) { // here the npm validator is used to check for valid emails 
+                    throw new Error("Email is invalid");
+                }
+            }
+        },
+        password: {
+            type: String,
+            required: true,
+            trim: true,
+            minLength: 6,
+            validate(value) {
+                if (value.toLowerCase().includes("password")) {
+                    throw new Error("Password cannot contain the word 'password'")
+                }
+            }
+        },
+        tokens: [{
+            token: {
+                type: String,
+                required: true
+            }
+        }],
+        avatar: {
+            type: Buffer
         }
-    }]},
+    },
     {
         timestamps: true
     }
