@@ -5,8 +5,9 @@ const User = require('../models/user')
 const Task = require('../models/task')
 const auth = require('../middleware/authentication')
 const multer = require('multer')
+const sharp = require('sharp') // sharp is used to alter image properties such as format and size. 
 
-//upload user avatar
+//upload user avatar, multer allows you to attach images and other files to the req object or save to the file system 
 const upload = multer({
     // dest: 'avatars', // this overides the default of multer, which is attaching the upload to the req object. 
     limits: {
@@ -19,19 +20,37 @@ const upload = multer({
         cb(undefined, true)
     }
 })
+//upload user avatar
 userRouter.post('/users/me/avatar', auth,  upload.single("avatar"), async (req, res) => {
-    req.user.avatar = req.file.buffer
+    const buffer = await sharp(req.user.avatar).resize(250,250).png().toBuffer()
+    req.user.avatar = buffer
     await req.user.save()
     res.status(200).send()
 }, (error, req, res, next) => {
     res.status(400).send({"error" : error.message }),
     next()
 })
+// user avatar is shown in an image html tag: <img src="data:image/jpg;base64,/binary > "
 
+// delete user avatar 
 userRouter.delete('/users/me/avatar', auth, async(req,res) => {
     req.user.avatar = undefined
     await req.user.save()
     res.status(200).send()
+})
+
+// acces specific user avatar 
+userRouter.get('/users/:id/avatar', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user || !user.avatar) {
+            throw new Error("Error with somehting ")
+        }
+        res.set('content-type', 'image/jpg') // express sets this to 'application/json' but when something else it needs to be set 
+        res.send(user.avatar)
+    } catch (e) {
+        res.status(400).send(e.message)
+    }
 })
 
 //post new user

@@ -84,12 +84,13 @@ userSchema.pre('save', async function(next) {
     }
     next()
 })
-// this is called whenever something is JSON'ed. It removes sensitive information on the res.send call.
+// this is called whenever something is JSON'ed, ie just before something is sent back to the client. It removes sensitive information on the res.send call.
 userSchema.methods.toJSON = function() {
     const user = this.toObject()
 
     delete user.tokens
     delete user.password
+    delete user.avatar
     return user
 }
 // this looks for a existing user
