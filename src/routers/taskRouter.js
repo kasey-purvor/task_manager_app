@@ -33,7 +33,6 @@ router.get('/tasks', auth, async (req, res) => {
     if(req.query.sort) {
         const sort_def = req.query.sort.split("_")
         sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1
-        console.log(sort)
     } 
     try {
         // const tasks = await Task.find({
@@ -44,7 +43,7 @@ router.get('/tasks', auth, async (req, res) => {
         // orrr you could use the new ref property from mongoose
         await req.user.populate({
             path : 'tasks',
-            match,
+            match, // populate is useful here as it allows req's without a "completed" param. It returns all tasks instead of giving errors 
             options: {
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip),

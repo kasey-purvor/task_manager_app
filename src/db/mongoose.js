@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://localhost:27017/task-manager-app-2022-kp', {
+mongoose.connect(process.env.MONGODB_TASK_COLLECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

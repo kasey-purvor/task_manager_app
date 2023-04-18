@@ -3,6 +3,7 @@ const userRouter = express.Router()
 require('../db/mongoose')
 const User = require('../models/user')
 const Task = require('../models/task')
+const {sendWelcomeEmail, sendGoodbyeEmail} = require('../emails/account')
 const auth = require('../middleware/authentication')
 const multer = require('multer')
 const sharp = require('sharp') // sharp is used to alter image properties such as format and size. 
@@ -54,18 +55,16 @@ userRouter.get('/users/:id/avatar', async (req, res) => {
 })
 
 //post new user
-userRouter.post("/users", (req, res) => {
+userRouter.post("/users", async (req, res) => {
     const user = new User(req.body); // creating a mongoose model object, so body will be validated/sanitised 
-    async function saveUser() {
-        try {
-            await user.save()
-            const token = await user.generateAuthToken()
-            res.status(201).send({user, token})
-        } catch(error) {
-            res.status(400).send(error)
-        }
+    try {
+        await user.save()
+        const token = await user.generateAuthToken()
+        res.status(201).send({user, token})
+        sendWelcomeEmail(req.body.name, req.body.email)
+    } catch(error) {
+        res.status(400).send(error)
     }
-    saveUser()
 })
 //login user 
 userRouter.post('/users/login', async (req, res) => {
@@ -124,6 +123,7 @@ userRouter.patch('/users/me', auth, async (req, res) => {
 userRouter.delete('/users/me', auth,  async (req, res) => {
     try {
         await req.user.remove()
+        sendGoodbyeEmail(req.user.name, req.user.email)
         // await Task.deleteMany({owner: req.user._id}) // this has been replaced my mongoose middleware. 
         res.send("user deleted")
     } catch(e) {

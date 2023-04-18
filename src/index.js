@@ -6,8 +6,7 @@ const Task = require('./models/task')
 const User = require('./models/user')
 
 const app = express();
-const port = process.env.port || 3000;
-
+const port = process.env.PORT 
 
 app.use(express.json()); // makes express auto parse JSON in the body of the request
 app.use(taskRouter)
