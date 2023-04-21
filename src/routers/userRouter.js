@@ -23,7 +23,8 @@ const upload = multer({
 })
 //upload user avatar
 userRouter.post('/users/me/avatar', auth,  upload.single("avatar"), async (req, res) => {
-    const buffer = await sharp(req.user.avatar).resize(250,250).png().toBuffer()
+    console.log(req.file.buffer)
+    const buffer = await sharp(req.file.buffer).resize(250,250).png().toBuffer()
     req.user.avatar = buffer
     await req.user.save()
     res.status(200).send()
@@ -76,7 +77,7 @@ userRouter.post('/users/login', async (req, res) => {
         res.status(400).send(e)
     }
 })
-
+//logout user
 userRouter.post('/users/logout', auth, async (req, res) => {
     try {
          req.user.tokens = req.user.tokens.filter((token) => {

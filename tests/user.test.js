@@ -79,7 +79,8 @@ describe("user route testing",  () => {
 
     test("Should get profile for authenticated user", async () => {
         await request(app).get('/users/me')
-            .set('Authorization', `Bearer ${user1.tokens[0].token}`).send()
+            .set('Authorization', `Bearer ${user1.tokens[0].token}`)
+            .send()
             .expect(200)
     })
 
@@ -104,4 +105,37 @@ describe("user route testing",  () => {
             .expect(401)
     })
     
+    test("should upload avatar image", async () => {
+        await request(app).post('/users/me/avatar')
+            .set('Authorization', `Bearer ${user1.tokens[0].token}`)
+            .attach("avatar", "./tests/fixtures/test.jpg")
+            .expect(200)
+        const user = await User.findOne({_id: user1._id})
+        expect(user.avatar).toEqual(expect.any(Buffer))
+    })
+
+    test("Should update user fields", async () => {
+        await request(app).patch('/users/me')
+            .set("Authorization", `Bearer ${user1.tokens[0].token}`)
+            .send({
+                name: "Kasey",
+                age: 25
+            })
+            .expect(200)
+        const user = await User.findOne({_id: user1._id})
+        expect(user.name).toEqual("Kasey")
+        expect(user.age).toEqual(25)
+    })
+
+    test("Should not update invalid fields", async () => {
+        await request(app).patch('/users/me')
+            .set("Authorization", `Bearer ${user1.tokens[0].token}`)
+            .send({
+                "Names": "Kasey",
+                "agehs": 25
+            })
+        const user = await User.findOne({_id: user1._id})
+        expect(user.names && user.agehs).toBeUndefined()
+    })
+
 })
