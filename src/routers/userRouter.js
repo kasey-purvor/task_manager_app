@@ -59,9 +59,9 @@ userRouter.post("/users", async (req, res) => {
     const user = new User(req.body); // creating a mongoose model object, so body will be validated/sanitised 
     try {
         await user.save()
-        const token = await user.generateAuthToken()
+        const token = await user.generateAuthTokenAndSaveToUser()
         res.status(201).send({user, token})
-        sendWelcomeEmail(req.body.name, req.body.email)
+        // sendWelcomeEmail(req.body.name, req.body.email)
     } catch(error) {
         res.status(400).send(error)
     }
@@ -70,12 +70,11 @@ userRouter.post("/users", async (req, res) => {
 userRouter.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-        const token = await user.generateAuthToken() // user should not be here
+        const token = await user.generateAuthTokenAndSaveToUser() // user should not be here
         res.status(200).send({user, token})
     } catch(e) {
         res.status(400).send(e)
     }
-    
 })
 
 userRouter.post('/users/logout', auth, async (req, res) => {
@@ -116,14 +115,14 @@ userRouter.patch('/users/me', auth, async (req, res) => {
         await req.user.save()
         res.send(req.user)
     } catch (e) {
-        res.send(e )
+        res.send(e)
     }
 })
 // find and delete Users
 userRouter.delete('/users/me', auth,  async (req, res) => {
     try {
         await req.user.remove()
-        sendGoodbyeEmail(req.user.name, req.user.email)
+        // sendGoodbyeEmail(req.user.name, req.user.email)
         // await Task.deleteMany({owner: req.user._id}) // this has been replaced my mongoose middleware. 
         res.send("user deleted")
     } catch(e) {

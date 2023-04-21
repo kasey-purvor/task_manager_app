@@ -88,7 +88,7 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.toJSON = function() {
     const user = this.toObject()
 
-    delete user.tokens
+    // delete user.tokens
     delete user.password
     delete user.avatar
     return user
@@ -105,7 +105,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
     }
 }
 //generate JSON web token 
-userSchema.methods.generateAuthToken = async function () {
+userSchema.methods.generateAuthTokenAndSaveToUser = async function () {
     const user = this;
     const token = jwt.sign({_id: user._id}, process.env.JSON_WEB_TOKEN_KEY)
     user.tokens = user.tokens.concat({token})

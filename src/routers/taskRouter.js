@@ -12,7 +12,6 @@ router.post('/tasks', auth, (req, res) => {
     async function saveTask() {
         try {
             await task.save();
-            console.log("Task Saved");
             res.status(201).send(task)
         } catch(error) {
             console.log(error)
