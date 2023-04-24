@@ -30,7 +30,7 @@ router.get('/tasks', auth, async (req, res) => {
         match.completed = req.query.completed === "true"
     }
     if(req.query.sort) {
-        const sort_def = req.query.sort.split("_")
+        const sort_def = req.query.sort.split("_") // this param needs the fieldTosort_asc or fieldTosort_desc
         sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1
     } 
     try {
