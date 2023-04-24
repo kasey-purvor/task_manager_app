@@ -62,7 +62,7 @@ const userSchema = mongoose.Schema(
 )
 
 //set schema options
-userSchema.set('validateBeforeSsave', true)
+userSchema.set('validateBeforeSave', true)
 // virtual relationships
 
 userSchema.virtual('tasks', { // tasks is the name of the virtual field 

@@ -1,30 +1,9 @@
 const request = require('supertest')
-const app = require('../src/app')
+const app = require('../src/app') // cannot work out why this is needed to run the tests, it is not called ...
 const User = require('../src/models/user')
-const jwt = require('jsonwebtoken')
-const mongoose = require('mongoose')
+const {user1Id, user1, setupDatabase} = require('./fixtures/testDB')
 
-const user1Id = new mongoose.Types.ObjectId() 
-
-const user1 = new User({
-    _id: user1Id,
-    email: "test.user@gmail.com",
-    name: "Name",
-    password: "atlas123",
-    tokens: [{
-        token: jwt.sign({_id: user1Id}, process.env.JSON_WEB_TOKEN_KEY)
-    }]
-})
-
-
-beforeEach( async() => {
-    await User.deleteMany({})
-    await new User(user1).save()
-})
-
-afterEach(async() => {
-    await User.deleteMany({})
-})
+beforeEach(setupDatabase) // not sure why setupDatabase() caused errors here? I think before each require a callback funciton definition rather than a call 
 
 describe("user route testing",  () => {
     test("Should sign up a new user" , async () => {

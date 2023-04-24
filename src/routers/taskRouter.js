@@ -1,5 +1,5 @@
 const express = require('express')
-require('../db/mongoose')
+// require('../db/mongoose')
 const Task = require('../models/task')
 const router = express.Router()
 const auth = require('../middleware/authentication')

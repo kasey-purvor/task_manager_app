@@ -1,6 +1,5 @@
 const express = require('express')
 const userRouter = express.Router()
-require('../db/mongoose')
 const User = require('../models/user')
 const Task = require('../models/task')
 const {sendWelcomeEmail, sendGoodbyeEmail} = require('../emails/account')
@@ -23,7 +22,6 @@ const upload = multer({
 })
 //upload user avatar
 userRouter.post('/users/me/avatar', auth,  upload.single("avatar"), async (req, res) => {
-    console.log(req.file.buffer)
     const buffer = await sharp(req.file.buffer).resize(250,250).png().toBuffer()
     req.user.avatar = buffer
     await req.user.save()
@@ -62,7 +60,7 @@ userRouter.post("/users", async (req, res) => {
         await user.save()
         const token = await user.generateAuthTokenAndSaveToUser()
         res.status(201).send({user, token})
-        // sendWelcomeEmail(req.body.name, req.body.email)
+        sendWelcomeEmail(req.body.name, req.body.email)
     } catch(error) {
         res.status(400).send(error)
     }
@@ -123,7 +121,7 @@ userRouter.patch('/users/me', auth, async (req, res) => {
 userRouter.delete('/users/me', auth,  async (req, res) => {
     try {
         await req.user.remove()
-        // sendGoodbyeEmail(req.user.name, req.user.email)
+        sendGoodbyeEmail(req.user.name, req.user.email)
         // await Task.deleteMany({owner: req.user._id}) // this has been replaced my mongoose middleware. 
         res.send("user deleted")
     } catch(e) {
