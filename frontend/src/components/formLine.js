@@ -15,7 +15,7 @@ export default function FormLine({
       <input
         type="{formLineType}"
         id="input-label-with-helper-text"
-        class="py-3 px-4 block w-3/4 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500bg-grey-150border-gray-700 text-gray-400"
+        class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500bg-grey-150border-gray-700 text-gray-400"
         placeholder={placeholderText}
         aria-describedby="hs-input-helper-text"
       />

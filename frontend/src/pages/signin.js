@@ -1,9 +1,9 @@
-import FormLine from "@/components/formLine"
-import Form from "@/components/form"
+import Form from "@/components/form";
+import PageContainer from "@/components/pageContainer";
 export default function Signin() {
-    return (
-        <main>
-            <Form formType="signIn"/>
-        </main>
-    )
+  return (
+    <PageContainer>
+      <Form formType="signIn" />
+    </PageContainer>
+  );
 }
