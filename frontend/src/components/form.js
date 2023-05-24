@@ -5,6 +5,7 @@ export default function Form({ formType }) {
   let renderedForm = formData.formRows.map((formLine) => (
     <>
     <FormLine
+      id={formLine.desc}
       desc={formLine.desc}
       additionalInfo={formLine.additionalInfo}
       formLineType={formLine.formLineType}

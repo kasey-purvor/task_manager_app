@@ -16,8 +16,11 @@ const taskSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true ,
             ref: 'User' // this stands for reference and will fill the field with the entire 'user' related 
-        }
-    
+        },
+        due: {
+            type: Date,
+            required: false
+        }   
     },
     {
         timestamps: true

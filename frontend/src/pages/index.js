@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main>
-      Test 
+      Homepage, havent decided what to display here yet
     </main>
   )
 }
