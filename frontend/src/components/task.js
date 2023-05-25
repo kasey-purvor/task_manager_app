@@ -1,8 +1,25 @@
 import Link from "next/link";
 
-export default function Task({due, description, owner, createdAt, updatedAt, completed, _id }) {
+export default function Task({
+  due,
+  description,
+  owner,
+  createdAt,
+  updatedAt,
+  completed,
+  _id,
+}) {
   return (
-    <tr due={due} completed={completed} _id={_id} createdAt={createdAt} updatedAt={updatedAt} owner={owner} description={description}>
+    <tr
+        className="border-solid border-b border-gray-400 hover:bg-green-100"
+      due={due}
+      completed={completed}
+      _id={_id}
+      createdAt={createdAt}
+      updatedAt={updatedAt}
+      owner={owner}
+      description={description}
+    >
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
         {due}
       </td>
@@ -17,11 +34,11 @@ export default function Task({due, description, owner, createdAt, updatedAt, com
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <Link className="text-blue-500 hover:text-blue-700" href="#">
-            Delete
+          Delete
         </Link>
         <> / </>
         <Link className="text-blue-500 hover:text-blue-700" href="#">
-            Edit
+          Edit
         </Link>
       </td>
     </tr>
