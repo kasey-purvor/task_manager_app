@@ -53,7 +53,7 @@ export default function Navbar({ isLoggedIn }) {
           <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:pl-5">
             <Link
               className="font-bold text-blue-500"
-              href="/tasks"
+              href="/tasks/allTasks"
               aria-current="page"
             >
               Tasks
