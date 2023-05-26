@@ -7,18 +7,11 @@ export default function Task({
   createdAt,
   updatedAt,
   completed,
-  _id,
+  _id
 }) {
   return (
     <tr
         className="border-solid border-b border-gray-400 hover:bg-green-100"
-      due={due}
-      completed={completed}
-      _id={_id}
-      createdAt={createdAt}
-      updatedAt={updatedAt}
-      owner={owner}
-      description={description}
     >
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
         {due}

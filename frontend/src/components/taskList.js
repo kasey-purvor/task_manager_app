@@ -3,7 +3,7 @@ import Task from "@/components/task";
 export default function TaskList( {allTasks} ) {
   
   const renderedTasks = allTasks.map((task) => {
-    return <Task due={task.due} description={task.description} completed={task.completed} createdAt={task.createdAt} key={task._id} id={task._id}/>;
+    return <Task due={task.due} description={task.description} completed={task.completed} createdAt={task.createdAt} key={task._id} _id={task._id}/>;
   });
 
   return (
