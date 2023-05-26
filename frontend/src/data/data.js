@@ -24,7 +24,7 @@ export const data = {
                     desc: "Username / Email",
                     additionalInfo: "Please use your email address if you would like to recieve notifications regarding your tasks.",
                     formLineType: "email",
-                    placeholderText: "example@gmail.com or exampleUsername"
+                    placeholderText: "example@gmail.com or example Username"
                 },
                 {
                     desc: "Password",

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import '../styles/globals.css'
 import Navbar from '@/components/navbar'
-
+// import ('preline')
 dynamic(() => import('preline'), {
     ssr: false
 })
