@@ -1,10 +1,16 @@
 import Form from "@/components/form";
 import PageContainer from "@/components/pageContainer";
+import Head from "next/head";
 
 export default function Signup() {
-  return (
-    <PageContainer>
-      <Form formType="signUp" />
-    </PageContainer>
-  );
+    return (
+        <div>
+            <Head>
+                <title>Sign Up</title>
+            </Head>
+            <PageContainer>
+                <Form formType="signUp" />
+            </PageContainer>
+        </div>
+    );
 }

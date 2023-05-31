@@ -1,5 +1,6 @@
 import Form from "@/components/form";
 import PageContainer from "@/components/pageContainer";
+import Head from "next/head";
 
 export async function getServerSideProps() {
   return {
@@ -8,8 +9,15 @@ export async function getServerSideProps() {
 }
 export default function Signin() {
   return (
-    <PageContainer>
-      <Form formType="signIn" />
-    </PageContainer>
+    <div>
+      <Head>
+        <title>
+          Sign In 
+        </title>
+      </Head>
+      <PageContainer>
+        <Form formType="signIn" />
+      </PageContainer>
+    </div>
   );
 }
