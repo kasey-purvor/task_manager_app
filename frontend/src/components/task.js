@@ -8,11 +8,17 @@ export default function Task({ due, description, owner, createdAt, updatedAt, co
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{`${completed}`}</td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{createdAt}</td>
             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <Link className="text-blue-500 hover:text-blue-700" href="#">
+                <Link
+                    className="text-blue-500 hover:text-blue-700"
+                    href="#"
+                >
                     Delete
                 </Link>
                 <> / </>
-                <Link className="text-blue-500 hover:text-blue-700" href={`/tasks/${id}`}>
+                <Link
+                    className="text-blue-500 hover:text-blue-700"
+                    href={`/tasks/${id}`}
+                >
                     Edit
                 </Link>
             </td>

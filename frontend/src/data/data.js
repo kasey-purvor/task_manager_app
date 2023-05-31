@@ -24,7 +24,7 @@ export const data = {
                     desc: "Username / Email",
                     additionalInfo: "Please use your email address if you would like to recieve notifications regarding your tasks.",
                     formLineType: "email",
-                    placeholderText: "example@gmail.com or example Username"
+                    placeholderText: "example@gmail.com  - or - exampleUsername"
                 },
                 {
                     desc: "Password",
@@ -33,6 +33,27 @@ export const data = {
                     placeholderText: "Enter a password"
                 }
 
+            ]
+        },
+        {
+            type: "editTask",
+            formRows: [
+                {
+                    desc: "Task Description",
+                    additionalInfo: "Please edit the Task Description if you desire",
+                    formLineType: "text",
+                },
+                {
+                    desc: "Due Date",
+                    additionalInfo: " Please edit Task Due Date if you desire",
+                    formLineType: "date",
+                },
+                {
+                    desc: "Completion Status",
+                    additionalInfo: "Please edit Task Completion Status if you desire",
+                    formLineType: "checkbox",
+                    isCheckBox: true
+                }
             ]
         }
     ]
