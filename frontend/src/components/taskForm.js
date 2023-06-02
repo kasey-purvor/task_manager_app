@@ -16,12 +16,12 @@ export default function TaskEditForm({ taskData, formEdit }) {
     async function handleDelete(e) {
         e.preventDefault();
         await deleteTask(taskData._id).then(alert("Task Deleted"));
-        router.push(`/tasks/allTasks`);
+        router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
     async function handleSave(e) {
         e.preventDefault();
         await saveTask(taskDescription, due).then(alert("Task Saved"));
-        router.push(`/tasks/allTasks`);
+        router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
 
     if (taskData.due) {

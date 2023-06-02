@@ -1,5 +1,5 @@
 import PageContainer from "@/components/pageContainer";
-import TaskEditForm from "@/components/taskEditForm";
+import TaskEditForm from "@/components/taskForm";
 export default function NewTask() {
     const emptyTaskData = {}
     return (
