@@ -52,6 +52,13 @@ export default function Navbar({ isLoggedIn }) {
         >
           <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:pl-5">
             <Link
+              href="/tasks/newTask"
+            >
+                <button
+                    className="bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-3 mr-1  rounded-3xl"
+                >New Task</button>
+            </Link>
+            <Link
               className="font-bold text-blue-500"
               href="/tasks/allTasks"
               aria-current="page"

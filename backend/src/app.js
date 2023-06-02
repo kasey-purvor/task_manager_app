@@ -8,7 +8,7 @@ const port = process.env.PORT
 app.options('/tasks/:id', (req, res) => {
     // Set CORS headers for preflight request
     res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE. PATCH');
     res.header('Access-Control-Allow-Headers', 'Authorization');
   
     // Respond with 204 No Content

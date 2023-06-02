@@ -26,6 +26,7 @@ export default function TaskDetailsPage({ taskData }) {
                
             <TaskEditForm
                 taskData={taskData}
+                formEdit={true}
             />
 
         </PageContainer>

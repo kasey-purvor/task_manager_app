@@ -6,7 +6,7 @@ const taskSchema = mongoose.Schema(
             type: String,
             required: true,
             trim: true,
-            // default: "No description provided"
+            default: "No description provided"
         },
         completed: {
             type: Boolean,
