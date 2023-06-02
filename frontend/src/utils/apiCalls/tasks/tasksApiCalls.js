@@ -7,7 +7,7 @@ export const getAllTasks = async () => {
     const response = await fetch("http://localhost:3000/tasks", {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${process.env.TOKEN}`,
             "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
@@ -19,7 +19,7 @@ export const getTask = async (_id) => {
     const response = await fetch(`http://localhost:3000/tasks/${_id}`, {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${process.env.TOKEN}`,
             "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));

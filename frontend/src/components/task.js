@@ -4,7 +4,7 @@ export default function Task({ due, description, owner, createdAt, updatedAt, co
     return (
         <tr className="border-solid border-b border-gray-400 hover:bg-green-100">
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{due}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-800">{description}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-800 max-w-[300px] overflow-hidden truncate">{description}</td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{`${completed}`}</td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{createdAt}</td>
             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
