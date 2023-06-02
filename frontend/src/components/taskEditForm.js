@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import axios from "axios";
+import { deleteTask, editTask } from "@/utils/apiCalls/tasks/tasksApiCalls";
+
 export default function TaskEditForm({ taskData }) {
     const [completed, setCompleted] = useState(taskData.completed);
     const [due, setDue] = useState(taskData.due || "");
@@ -19,34 +20,15 @@ export default function TaskEditForm({ taskData }) {
     }
     async function handleSubmit(e) {
         e.preventDefault();
-        // await axios.patch(`http://localhost:3000/tasks/${taskData._id}`, {
-        //     description: taskDescription,
-        //     completed: completed,
-        //     due: due
-        // },
-        // {
-        //     headers: {
-        //         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDZmM2FhNzRlZWQ5NzZmMDA1OTM4MzQiLCJpYXQiOjE2ODUwMTExMTF9.8_G1FgWMWunjQ2_j4E-mTlRg9-tNabB1h0BpCPusTt4`,
-        //         "Content-Type": "application/json",
-        //     },
-        // }).catch((error) => alert(error));
-        await fetch(`http://localhost:3000/tasks/${taskData._id}`, {
-            method: "PATCH",
-            headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU2OTgyODV9.46iI44wTsGmyxgfcmIluAyMZETqu6NyWFo4yImSPC9A`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                description: taskDescription,
-                completed: completed,
-                due: due,
-            }),
-        }).catch((error) => alert(error));
-        router.push({
-            pathname: `/tasks/`,
-        });  
+        editTask(taskData._id, taskDescription, completed, due)
+            .then(alert("Task Updated"));
     }
-
+    async function handleDelete(e) {
+        e.preventDefault();
+        await deleteTask(taskData._id)
+            .then(alert("Task Deleted"));
+        router.push(`/tasks/allTasks`);
+    }
     return (
         <main className="p-6 max-h-120  mx-auto sm:max-w-3xl sm:w-3/4 md:w-1/2 bg-orange-300  rounded-3xl">
             <Head>
@@ -62,9 +44,7 @@ export default function TaskEditForm({ taskData }) {
                 {dueDataHTMLLine}
             </div>
             <br />
-            <form
-                onSubmit={handleSubmit}
-            >
+            <form onSubmit={handleSubmit}>
                 <div className=" hover:bg-orange-400 border-orange-400 rounded-3xl p-3">
                     <p className="text-lg text-center">Edit Task</p>
                     <p className="text-medium text-gray-800 mt-2">Task Description</p>
@@ -106,7 +86,7 @@ export default function TaskEditForm({ taskData }) {
                     <p className="text-medium text-gray-800 mt-2">Completed</p>
                     {/* perhaps consider using a select dropdown instead?  */}
                     <input
-                        type="checkbox" 
+                        type="checkbox"
                         name="completed"
                         defaultChecked={taskData.completed}
                         onChange={(e) => setCompleted(e.target.checked)}
@@ -123,10 +103,16 @@ export default function TaskEditForm({ taskData }) {
                     <br />
                     <div className="flex justify-center items-center">
                         <button
-                            className=" bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-4 rounded-3xl mt-2"
+                            className=" bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-4 mx-4 rounded-3xl mt-2"
                             type="submit"
                         >
                             Update
+                        </button>
+                        <button
+                            className=" bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-4 mx-4 rounded-3xl mt-2"
+                            onClick={handleDelete}
+                        >
+                            Delete
                         </button>
                     </div>
                 </div>
