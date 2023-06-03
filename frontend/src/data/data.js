@@ -31,29 +31,20 @@ export const data = {
                     additionalInfo: "Please create a password",
                     formLineType: "password",
                     placeholderText: "Enter a password"
+                },
+                {
+                    desc: "Name",
+                    additionalInfo: "Please enter your name",
+                    formLineType: "text",
+                    placeholderText: "Enter your name"
+                },
+                {
+                    desc: "Age",
+                    additionalInfo: "(Optional) Please enter your age",
+                    formLineType: "number",
+                    placeholderText: "Enter your age"
                 }
 
-            ]
-        },
-        {
-            type: "editTask",
-            formRows: [
-                {
-                    desc: "Task Description",
-                    additionalInfo: "Please edit the Task Description if you desire",
-                    formLineType: "text",
-                },
-                {
-                    desc: "Due Date",
-                    additionalInfo: " Please edit Task Due Date if you desire",
-                    formLineType: "date",
-                },
-                {
-                    desc: "Completion Status",
-                    additionalInfo: "Please edit Task Completion Status if you desire",
-                    formLineType: "checkbox",
-                    isCheckBox: true
-                }
             ]
         }
     ]

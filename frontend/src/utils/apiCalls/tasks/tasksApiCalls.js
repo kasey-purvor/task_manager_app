@@ -1,6 +1,7 @@
 const userEmail = "ey.purvor@gmail.com";
 const userPAssword = "$2b$08$GbayOyMZ.u15uqWlTiMb3ukEvXCSipDz2cfttQ6ugRriUeqQNEiQq";
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU2OTgyODV9.46iI44wTsGmyxgfcmIluAyMZETqu6NyWFo4yImSPC9A";
+// const token = sessionStorage.getItem("token");
 
 export const getAllTasks = async () => {
     const response = await fetch("http://localhost:3000/tasks", {

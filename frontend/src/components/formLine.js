@@ -3,8 +3,12 @@ export default function FormLine({
   additionalInfo,
   formLineType,
   placeholderText,
-  isCheckBox
+  onTextChange,
+  
 }) {
+    function handleChange(e) {
+        onTextChange(e.target.value);
+    }
   return (
     <>
     <p className="text-medium text-gray-800 mt-2">
@@ -12,6 +16,7 @@ export default function FormLine({
     </p>
       <input
         type={formLineType}
+        onChange={handleChange}
         className={`py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500bg-grey-150border-gray-700 text-gray-400`}
         placeholder={placeholderText}
         aria-describedby="hs-input-helper-text"
