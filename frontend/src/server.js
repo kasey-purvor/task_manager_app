@@ -2,9 +2,10 @@ const https = require('https');
 const fs = require('fs');
 const next = require('next');
 const { parse } = require('url');
+
 const app = next({ dev: true });
 const handle = app.getRequestHandler();
-console.log('this is the frontend root',process.cwd())
+console.log('This is the frontend root',process.cwd())
 
     
 

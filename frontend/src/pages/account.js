@@ -5,7 +5,7 @@ export default function Account(user) {
             <Head>
                 <title>Account</title>
             </Head>
-            <h1>Account</h1>
+            <h1>Account Page</h1>
         </div>
     );
 }
