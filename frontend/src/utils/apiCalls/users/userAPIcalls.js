@@ -2,7 +2,7 @@ const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUw
 
 export const loginUser = async (email , password) => {
     try {
-        const response = await fetch(`https://localhost:3000/api/users/login`, {
+        const response = await fetch(`${process.env.BACKEND_ADDRESS}/api/users/login`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const loginUser = async (email , password) => {
 }
 export const signUpUser = async (name, email, password, age) => {
     try {
-        await fetch(`https://localhost:3000/api/users`, {
+        await fetch(`${process.env.BACKEND_ADDRESS}/api/users`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,

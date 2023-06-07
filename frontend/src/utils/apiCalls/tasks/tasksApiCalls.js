@@ -4,7 +4,7 @@ const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUw
 // const token = sessionStorage.getItem("token");
 
 export const getAllTasks = async () => {
-    const response = await fetch("https://localhost:3000/api/tasks", {
+    const response = await fetch(`${process.env.BACKEND_ADDRESS}/api/tasks`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -15,7 +15,7 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (_id) => {
-    const response = await fetch(`https://localhost:3000/api/tasks/${_id}`, {
+    const response = await fetch(`${process.env.BACKEND_ADDRESS}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const getTask = async (_id) => {
 };  
 
 export const deleteTask = async (_id) => {
-    await fetch(`https://localhost:3000/api/tasks/${_id}`, {
+    await fetch(`${process.env.BACKEND_ADDRESS}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export const deleteTask = async (_id) => {
 }
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`https://localhost:3000/api/tasks/${_id}`, {
+    await fetch(`${process.env.BACKEND_ADDRESS}/api/tasks/${_id}`, {
             method: "PATCH",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 }
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch("https://localhost:3000/api/tasks", {
+    await fetch(`${process.env.BACKEND_ADDRESS}/api/tasks`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,

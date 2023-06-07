@@ -4,7 +4,7 @@ const next = require('next');
 const { parse } = require('url');
 const app = next({ dev: true });
 const handle = app.getRequestHandler();
-console.log('this is the frontened root',process.cwd())
+console.log('this is the frontend root',process.cwd())
 
     
 
