@@ -62,7 +62,7 @@ export default function TaskForm({ taskData, formEdit }) {
                     className='text-sm text-gray-500 mt-2'
                     id='hs-input-helper-text'
                 >
-                    'Please edit Task Completed Status if you desire'
+                    Please edit Task Completed Status if you desire
                 </p>
             </div>
         );
