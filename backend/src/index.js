@@ -10,6 +10,6 @@ const port = process.env.PORT
 //         console.log(`PROD environment, Backend server is running on port ${port}`)
 //     })
 // }
-server.listen(port, () => {
+server.listen(3000, () => {
     console.log(`Backend server is running on port ${port}`)
 })
