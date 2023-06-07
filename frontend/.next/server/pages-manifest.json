@@ -1,0 +1,12 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/account": "pages/account.js",
+  "/": "pages/index.js",
+  "/signin": "pages/signin.js",
+  "/signup": "pages/signup.js",
+  "/tasks/newTask": "pages/tasks/newTask.js",
+  "/tasks/[id]": "pages/tasks/[id].js",
+  "/tasks/allTasks": "pages/tasks/allTasks.js",
+  "/_document": "pages/_document.js"
+}
