@@ -1,14 +1,21 @@
-const https = require("https");
-const fs = require("fs");
-const next = require("next");
-const { parse } = require("url");
+const https = require('https');
+const fs = require('fs');
+const next = require('next');
+const { parse } = require('url');
 const app = next({ dev: true });
 const handle = app.getRequestHandler();
 console.log('this is the frontened root',process.cwd())
-const options = {
-    key: fs.readFileSync("./certs/localhost-key.pem"),
-    cert: fs.readFileSync("./certs/localhost.pem"),
-};
+if(process.env.DEV === 'true') {
+    const options = {
+        key: fs.readFileSync('./certs/localhost-key.pem'),
+        cert: fs.readFileSync('./certs/localhost.pem'),
+    };
+} else {
+    
+}
+    
+
+
 app.prepare().then(() => {
     // const server = express();
 

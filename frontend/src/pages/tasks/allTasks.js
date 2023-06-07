@@ -1,6 +1,6 @@
-import TaskList from "@/components/taskList";
-import { getAllTasks } from "@/utils/apiCalls/tasks/tasksApiCalls";
-import Head from "next/head";
+import TaskList from '@/components/taskList';
+import { getAllTasks } from '@/utils/apiCalls/tasks/tasksApiCalls';
+import Head from 'next/head';
 
 
 export async function getServerSideProps() {

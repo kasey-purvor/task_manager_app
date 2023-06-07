@@ -1,6 +1,6 @@
-import Form from "@/components/form";
-import PageContainer from "@/components/pageContainer";
-import Head from "next/head";
+import Form from '@/components/form';
+import PageContainer from '@/components/pageContainer';
+import Head from 'next/head';
 
 export default function Signup() {
   return (
@@ -11,7 +11,7 @@ export default function Signup() {
         </title>
       </Head>
       <PageContainer>
-        <Form formType="signUp" />
+        <Form formType='signUp' />
       </PageContainer>
     </div>
   );

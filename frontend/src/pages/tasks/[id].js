@@ -1,8 +1,8 @@
-import { getAllTaskIds } from "@/utils/functions/tasksFunctions";
-import { getTask } from "@/utils/apiCalls/tasks/tasksApiCalls";
-import { useState } from "react";
-import TaskEditForm from "@/components/taskForm";
-import PageContainer from "@/components/pageContainer";
+import { getAllTaskIds } from '@/utils/functions/tasksFunctions';
+import { getTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
+import { useState } from 'react';
+import TaskEditForm from '@/components/taskForm';
+import PageContainer from '@/components/pageContainer';
 export async function getStaticPaths() {
     const allTaskIds = await getAllTaskIds();
     return {
