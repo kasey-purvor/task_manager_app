@@ -59,7 +59,7 @@ userRouter.get("/api/users/:id/avatar", async (req, res) => {
 });
 
 //post new user
-userRouter.post("api//users", async (req, res) => {
+userRouter.post("/api/users", async (req, res) => {
     const user = new User(req.body); // creating a mongoose model object, so body will be validated/sanitised
     try {
         await user.save();
@@ -119,7 +119,7 @@ userRouter.post("/api/users/logoutall", auth, async (req, res) => {
     }
 });
 
-userRouter.get("/users/me", auth, async (req, res) => {
+userRouter.get("/api/users/me", auth, async (req, res) => {
     res.status(200).send(req.user);
 });
 

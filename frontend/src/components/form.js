@@ -15,7 +15,7 @@ export default function Form({ formType }) {
         e.preventDefault();
         formType === "signIn" ? token = await loginUser(email, password): token = await signUpUser(name, email, password, age);
         router.push("/");
-        sessionStorage.setItem("token", token);
+        // sessionStorage.setItem("token", token);
     };
     const renderedForm = (
         <>

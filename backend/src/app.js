@@ -13,8 +13,8 @@ const app = express();
 const port = process.env.PORT;
 console.log("this is where we are backened app", process.cwd())
 
-const localHostKeyPEM = fs.readFileSync('./backend/certs/localhost-key.pem')
-const localHostPEM = fs.readFileSync('./backend/certs/localhost.pem')
+const localHostKeyPEM = fs.readFileSync('./certs/localhost-key.pem')
+const localHostPEM = fs.readFileSync('./certs/localhost.pem')
 const options = {
     key: localHostKeyPEM,
     cert: localHostPEM
