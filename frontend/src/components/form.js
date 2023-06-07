@@ -2,6 +2,7 @@ import FormLine from "./formLine";
 import { data } from "../data/data";
 import { useState } from "react";
 import { loginUser, signUpUser } from "@/utils/apiCalls/users/userAPIcalls";
+import { useRouter } from "next/router";
 export default function Form({ formType }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -9,9 +10,11 @@ export default function Form({ formType }) {
     const [age, setAge] = useState("");
     const formData = data.forms.filter((form) => form.type === formType)[0];
     let token = "";
+    const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
         formType === "signIn" ? token = await loginUser(email, password): token = await signUpUser(name, email, password, age);
+        router.push("/");
         sessionStorage.setItem("token", token);
     };
     const renderedForm = (

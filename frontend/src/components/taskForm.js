@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { deleteTask, editTask, saveTask } from "@/utils/apiCalls/tasks/tasksApiCalls";
 
-export default function TaskEditForm({ taskData, formEdit }) {
+export default function TaskForm({ taskData, formEdit }) {
     const [completed, setCompleted] = useState(taskData.completed || false);
     const [due, setDue] = useState(taskData.due || "");
     const [taskDescription, setDescription] = useState(taskData.description || "");

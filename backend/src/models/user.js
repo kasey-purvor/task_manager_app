@@ -114,7 +114,7 @@ userSchema.methods.generateAuthTokenAndSaveToUser = async function () {
     const token = jwt.sign({_id: user._id}, process.env.JSON_WEB_TOKEN_KEY)
     user.tokens = user.tokens.concat({token})
     await user.save()
-    return {token, user}
+    return {token}
 }
 
 

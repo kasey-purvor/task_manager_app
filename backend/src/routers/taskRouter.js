@@ -1,38 +1,36 @@
-const express = require('express')
+const express = require("express");
 // require('../db/mongoose')
-const Task = require('../models/task')
-const router = express.Router()
-const auth = require('../middleware/authentication')
+const Task = require("../models/task");
+const router = express.Router();
+const auth = require("../middleware/authentication");
 
-router.post('/tasks', auth, (req, res) => {
+router.post("/api/tasks", auth, async (req, res) => {
     const task = new Task({
         ...req.body,
-        owner: req.user._id // req.user is created in the Auth middleware if you are wondering how that works. 
-    })
-    async function saveTask() {
-        try {
-            await task.save();
-            res.status(201).send(task)
-        } catch(error) {
-            console.log(error)
-            res.status(400).send(error)
-        }
+        owner: req.user._id, // req.user is created in the Auth middleware if you are wondering how that works.
+    });
+    const cookie = req.cookies
+    try {
+        await task.save();
+        res.status(201).send(cookie );
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error);
     }
-    saveTask()
-})
+});
 
 // sort=field_asc
-router.get('/tasks', auth, async (req, res) => { 
-    const match = {}
-    const sort = {}
-    
+router.get("/api/tasks", auth, async (req, res) => {
+    const match = {};
+    const sort = {};
+
     if (req.query.completed) {
-        match.completed = req.query.completed === "true"
+        match.completed = req.query.completed === "true";
     }
-    if(req.query.sort) {
-        const sort_def = req.query.sort.split("_") // this param needs the fieldTosort_asc or fieldTosort_desc
-        sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1
-    } 
+    if (req.query.sort) {
+        const sort_def = req.query.sort.split("_"); // this param needs the fieldTosort_asc or fieldTosort_desc
+        sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1;
+    }
     try {
         // const tasks = await Task.find({
         //     owner: req.user._id,
@@ -41,64 +39,62 @@ router.get('/tasks', auth, async (req, res) => {
         // res.status(200).send(tasks)
         // orrr you could use the new ref property from mongoose
         await req.user.populate({
-            path : 'tasks',
-            match, // populate is useful here as it allows req's without a "completed" param. It returns all tasks instead of giving errors 
+            path: "tasks",
+            match, // populate is useful here as it allows req's without a "completed" param. It returns all tasks instead of giving errors
             options: {
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip),
-                sort
-            }
-    })
-        res.status(200).send(req.user.tasks)
-
-    } catch (e){
-        res.status(400).send(e)
+                sort,
+            },
+        });
+        res.status(200).send(req.user.tasks);
+    } catch (e) {
+        res.status(400).send(e);
     }
-})
+});
 
-router.get('/tasks/:id', auth, async (req, res) => {
+router.get("/api/tasks/:id", auth, async (req, res) => {
     const _id = req.params.id;
     try {
-        const task = await Task.findOne({_id, owner: req.user._id})
+        const task = await Task.findOne({ _id, owner: req.user._id });
         if (!task) {
-            return res.status(404).send("task not found")
+            return res.status(404).send("task not found");
         }
-        res.status(201).send(task)
+        res.status(201).send(task);
     } catch (e) {
-        res.status(400).send(e)
+        res.status(400).send(e);
     }
-})
+});
 
-router.patch('/tasks/:id', auth, async (req, res) => {
-    const updates = Object.keys(req.body)
+router.patch("/api/tasks/:id", auth, async (req, res) => {
+    const updates = Object.keys(req.body);
     try {
-        const task = await Task.findOne({_id: req.params.id, owner: req.user._id })
+        const task = await Task.findOne({ _id: req.params.id, owner: req.user._id });
         if (!task) {
-            return res.status(404).send("no task found")
+            return res.status(404).send("no task found");
         }
-        updates.forEach(update => {
-            task[update] = req.body[update]
-        })
-        await task.save()
-        res.status(201).send(task)
+        updates.forEach((update) => {
+            task[update] = req.body[update];
+        });
+        await task.save();
+        res.status(201).send(task);
     } catch (e) {
-        res.send(e)
+        res.send(e);
     }
-})
+});
 
-router.delete('/tasks/:id', auth, async (req, res) => {
+router.delete("/api/tasks/:id", auth, async (req, res) => {
     try {
-        const task = await Task.findOne({_id: req.params.id, owner: req.user._id})
+        const task = await Task.findOne({ _id: req.params.id, owner: req.user._id });
         if (!task) {
-            return res.status(404).send("task not found")
+            return res.status(404).send("task not found");
         }
-        await task.remove()
-        res.status(302)
-        res.send("task Removed")
-        
+        await task.remove();
+        res.status(302);
+        res.send("task Removed");
     } catch (e) {
-        res.send(e)
+        res.send(e);
     }
-})
+});
 
-module.exports = router
+module.exports = router;

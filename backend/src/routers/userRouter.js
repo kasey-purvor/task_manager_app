@@ -22,7 +22,7 @@ const upload = multer({
 });
 //upload user avatar
 userRouter.post(
-    "/users/me/avatar",
+    "/api/users/me/avatar",
     auth,
     upload.single("avatar"),
     async (req, res) => {
@@ -38,14 +38,14 @@ userRouter.post(
 // user avatar is shown in an image html tag: <img src="data:image/jpg;base64,/binary > "
 
 // delete user avatar
-userRouter.delete("/users/me/avatar", auth, async (req, res) => {
+userRouter.delete("/api/users/me/avatar", auth, async (req, res) => {
     req.user.avatar = undefined;
     await req.user.save();
     res.status(200).send();
 });
 
 // acces specific user avatar
-userRouter.get("/users/:id/avatar", async (req, res) => {
+userRouter.get("/api/users/:id/avatar", async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user || !user.avatar) {
@@ -59,11 +59,19 @@ userRouter.get("/users/:id/avatar", async (req, res) => {
 });
 
 //post new user
-userRouter.post("/users", async (req, res) => {
+userRouter.post("api//users", async (req, res) => {
     const user = new User(req.body); // creating a mongoose model object, so body will be validated/sanitised
     try {
         await user.save();
         const token = await user.generateAuthTokenAndSaveToUser();
+        res.cookie("jwt", token.token, { 
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+            domain: "localhost",   
+            path: "/",
+         });
+        //  console.log(token.token)
         res.status(201).send({ user, token });
         sendWelcomeEmail(req.body.name, req.body.email);
     } catch (error) {
@@ -71,17 +79,25 @@ userRouter.post("/users", async (req, res) => {
     }
 });
 //login user
-userRouter.post("/users/login", async (req, res) => {
+userRouter.post("/api/users/login", async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-        const token = await user.generateAuthTokenAndSaveToUser(); // user should not be here
+        const token = await user.generateAuthTokenAndSaveToUser(); 
+        res.cookie("jwt", token.token, { 
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+            domain: "localhost",   
+            path: "/",
+         });
+        //  console.log(token.token)
         res.status(200).send({ user, token });
     } catch (e) {
         res.status(400).send(e);
     }
 });
 //logout user
-userRouter.post("/users/logout", auth, async (req, res) => {
+userRouter.post("/api/users/logout", auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return req.token !== token.token;
@@ -93,7 +109,7 @@ userRouter.post("/users/logout", auth, async (req, res) => {
     }
 });
 
-userRouter.post("/users/logoutall", auth, async (req, res) => {
+userRouter.post("/api/users/logoutall", auth, async (req, res) => {
     try {
         req.user.tokens = [];
         await req.user.save();
@@ -108,7 +124,7 @@ userRouter.get("/users/me", auth, async (req, res) => {
 });
 
 // find and update user
-userRouter.patch("/users/me", auth, async (req, res) => {
+userRouter.patch("/api/users/me", auth, async (req, res) => {
     const updates = Object.keys(req.body);
     try {
         updates.forEach((update) => {
@@ -121,7 +137,7 @@ userRouter.patch("/users/me", auth, async (req, res) => {
     }
 });
 // find and delete Users
-userRouter.delete("/users/me", auth, async (req, res) => {
+userRouter.delete("/api/users/me", auth, async (req, res) => {
     try {
         await req.user.remove();
         sendGoodbyeEmail(req.user.name, req.user.email);
