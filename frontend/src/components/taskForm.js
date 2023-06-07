@@ -84,13 +84,13 @@ export default function TaskForm({ taskData, formEdit }) {
         );
         var formTitle = 'Edit Task';
         var taskDescriptonMessage = 'Please edit the Task Description if you desire';
-        var taskDueDateMessage = 'Please edit Task Due Date & Time if you desire';
+        var taskDueDateMessage = 'Please edit Task Due Date and Time if you desire';
     } else {
         // the following sections are needed if the form is for creating tasks
         var formTitle = 'New Task';
         var taskDescriptonMessage = 'Please enter your Task Description.';
         var taskDueDateMessage =
-            'Please enter a Due Date & Time if your task requires one. These can be used to recieve email alerts about the task.';
+            'Please enter a Due Date and Time if your task requires one. These can be used to recieve email alerts about the task.';
         var buttonsSection = (
             <div className='flex justify-center items-center'>
                 <button
