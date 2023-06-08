@@ -5,7 +5,13 @@ export default function Account(user) {
             <Head>
                 <title>Account</title>
             </Head>
-            <h1>Account Page</h1>
+            <h1>Account Page
+                {process.env.NEXT_PUBLIC_BACKEND_ADDRESS}
+                <br/>
+                {process.env.NEXT_PUBLIC_TOKEN_PROD}
+                <br/>
+                {process.env.NEXT_PUBLIC_TOKEN_DEV}
+            </h1>
         </div>
     );
 }

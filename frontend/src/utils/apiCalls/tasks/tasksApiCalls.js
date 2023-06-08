@@ -1,9 +1,12 @@
-var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNlYTM5NjA0MTc0MzgzMTU1NzYyYzkiLCJpYXQiOjE2ODE4MjY3MTB9.L4XPH2hE-i_alab8ThNQIu3yNY9tSD8ZzTKoc8Tquew";
-
-// const token = sessionStorage.getItem("token");
+if(process.env.NEXT_PUBLIC_DEV === 'true') {
+    var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+} else {
+    var token = process.env.NEXT_PUBLIC_TOKEN_PROD
+}
+const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks`, {
+    const response = await fetch(`${backendApiUrl}/api/tasks`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -14,7 +17,7 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (_id) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
+    const response = await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -26,7 +29,7 @@ export const getTask = async (_id) => {
 };
 
 export const deleteTask = async (_id) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -35,7 +38,7 @@ export const deleteTask = async (_id) => {
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +53,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 };
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks`, {
+    await fetch(`${backendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
