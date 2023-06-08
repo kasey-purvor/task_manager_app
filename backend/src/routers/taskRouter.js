@@ -4,6 +4,10 @@ const Task = require("../models/task");
 const router = express.Router();
 const auth = require("../middleware/authentication");
 
+router.get('/api/tasks/test', (req, res) => {
+    res.status(200).send("test");
+})
+
 router.post("/api/tasks", auth, async (req, res) => {
     const task = new Task({
         ...req.body,
