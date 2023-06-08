@@ -12,7 +12,7 @@ console.log('This is the frontend root',process.cwd())
 
 app.prepare().then(() => {
     // const server = express();
-    if(process.env.DEV === 'true') {
+    if(process.env.NEXT_PUBLIC_DEV === 'true') {
         var options = {
             key: fs.readFileSync('./certs/localhost-key.pem'),
             cert: fs.readFileSync('./certs/localhost.pem'),

@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.PORT;
 console.log("This is the backened ROOT", process.cwd())
 
-if (process.env.DEV === "true") {
+if (process.env.NEXT_PUBLIC_DEV === "true") {
     
 } else {
     var options = {}
@@ -51,16 +51,16 @@ app.use(cookieParser());
 app.use(express.json()); // makes express auto parse JSON in the body of the request
 app.use(taskRouter);
 app.use(userRouter);
-if(process.env.DEV === 'true') {
-    var options = {
-        key: fs.readFileSync("./certs/localhost-key.pem"),
-        cert: fs.readFileSync("./certs/localhost.pem"),
-    };
-    const server = https.createServer(options, app)
-    module.exports = server;
-} else {
+// if(process.env.NEXT_PUBLIC_DEV === 'true') {
+//     var options = {
+//         key: fs.readFileSync("./certs/localhost-key.pem"),
+//         cert: fs.readFileSync("./certs/localhost.pem"),
+//     };
+//     const server = https.createServer(options, app)
+//     module.exports = server;
+// } else {
     module.exports = app
-}
+// }
 
 
 
