@@ -1,6 +1,12 @@
 const userEmail = "ey.purvor@gmail.com";
 const userPAssword = "$2b$08$GbayOyMZ.u15uqWlTiMb3ukEvXCSipDz2cfttQ6ugRriUeqQNEiQq";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw";
+
+if (process.env.DEV === "true") {
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw";
+} else {
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNlYTM5NjA0MTc0MzgzMTU1NzYyYzkiLCJpYXQiOjE2ODE4MjY3MTB9.L4XPH2hE-i_alab8ThNQIu3yNY9tSD8ZzTKoc8Tquew"
+}
+
 // const token = sessionStorage.getItem("token");
 
 export const getAllTasks = async () => {
