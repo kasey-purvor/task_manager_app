@@ -1,13 +1,4 @@
-const userEmail = "ey.purvor@gmail.com";
-const userPAssword = "$2b$08$GbayOyMZ.u15uqWlTiMb3ukEvXCSipDz2cfttQ6ugRriUeqQNEiQq";
-
-if (process.env.DEV === "true") {
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw";
-} else {
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNlYTM5NjA0MTc0MzgzMTU1NzYyYzkiLCJpYXQiOjE2ODE4MjY3MTB9.L4XPH2hE-i_alab8ThNQIu3yNY9tSD8ZzTKoc8Tquew"
-}
-
-// const token = sessionStorage.getItem("token");
+var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw";
 
 export const getAllTasks = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks`, {
@@ -25,39 +16,39 @@ export const getTask = async (_id) => {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
-            // "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
     return task;
-};  
+};
 
 export const deleteTask = async (_id) => {
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         },
-    }).catch((error) => alert(error))
-}
+    }).catch((error) => alert(error));
+};
 
 export const editTask = async (_id, taskDescription, completed, due) => {
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
-            method: "PATCH",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                description: taskDescription,
-                completed: completed,
-                due: due,
-            }),
-        }).catch((error) => alert(error));
-}
+        method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            description: taskDescription,
+            completed: completed,
+            due: due,
+        }),
+    }).catch((error) => alert(error));
+};
 
 export const saveTask = async (taskDescription, due) => {
-
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks`, {
         method: "POST",
         headers: {
@@ -67,6 +58,6 @@ export const saveTask = async (taskDescription, due) => {
         body: JSON.stringify({
             description: taskDescription,
             due: due,
-        })
+        }),
     }).catch((error) => alert(error));
-}
+};
