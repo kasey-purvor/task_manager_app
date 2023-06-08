@@ -1,7 +1,14 @@
-var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw";
+if(process.env.NEXT_PUBLIC_DEV === 'true') {
+    var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+} else {
+    var token = process.env.NEXT_PUBLIC_TOKEN_PROD
+}
+const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
+
+// const token = sessionStorage.getItem("token");
 
 export const getAllTasks = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks`, {
+    const response = await fetch(`${backendApiUrl}/api/tasks`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -12,11 +19,11 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (_id) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
+    const response = await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
@@ -24,17 +31,16 @@ export const getTask = async (_id) => {
 };
 
 export const deleteTask = async (_id) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
         },
     }).catch((error) => alert(error));
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -49,7 +55,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 };
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/api/tasks`, {
+    await fetch(`${backendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
