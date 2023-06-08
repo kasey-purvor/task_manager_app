@@ -19,10 +19,6 @@ router.post("/api/tasks", auth, async (req, res) => {
     }
 });
 
-router.get('api/task/test', async (req, res) => {
-    res.status(200).send("test");
-})
-
 // sort=field_asc
 router.get("/api/tasks", auth, async (req, res) => {
     const match = {};
