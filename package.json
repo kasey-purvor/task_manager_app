@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": " env-cmd -f ./config/dev.env concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev \"",
+    "dev": " env-cmd -f ./config/dev.env concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev -- --port=3001 \"",
     "test": "env-cmd -f ./config/test.env  jest --watch --runInBand --detectOpenHandles"
   },
   "jest": {
