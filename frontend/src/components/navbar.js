@@ -4,7 +4,7 @@ export default function Navbar({ isLoggedIn }) {
   return (
     <header className='flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 bg-gray-700'>
       <nav
-        className='w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between'
+        className='max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between'
         aria-label='Global'
       >
         <div className='flex items-center justify-between'>
