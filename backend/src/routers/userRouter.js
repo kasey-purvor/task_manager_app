@@ -64,12 +64,11 @@ userRouter.post("/api/users", async (req, res) => {
     try {
         await user.save();
         const token = await user.generateAuthTokenAndSaveToUser();
-        res.cookie("jwt", token.token, {
+        res.cookie("jwt", token.token, { 
             httpOnly: true,
             sameSite: "none",
             secure: true,
-        });
-        res.setHeader("Access-Control-Allow-Origin", "*");
+         });
         res.status(201).send({ user, token });
         sendWelcomeEmail(req.body.name, req.body.email);
     } catch (error) {
@@ -80,13 +79,14 @@ userRouter.post("/api/users", async (req, res) => {
 userRouter.post("/api/users/login", async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-        const token = await user.generateAuthTokenAndSaveToUser();
-        res.cookie("jwt", token.token, {
+        const token = await user.generateAuthTokenAndSaveToUser(); 
+        res.cookie("jwt", token.token, { 
             httpOnly: true,
             sameSite: "none",
             secure: true,
-        });
-        res.setHeader("Access-Control-Allow-Origin", "*");
+            domain: "localhost",   
+            path: "/",
+         });
         //  console.log(token.token)
         res.status(200).send({ user, token });
     } catch (e) {
