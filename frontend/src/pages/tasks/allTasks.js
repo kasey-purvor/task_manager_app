@@ -3,14 +3,14 @@ import { getAllTasks } from '@/utils/apiCalls/tasks/tasksApiCalls';
 import Head from 'next/head';
 
 
-// export async function getServerSideProps() {
-//     const allTasks = await getAllTasks();
-//     return {
-//         props: {
-//             allTasks,
-//         },
-//     };
-// }
+export async function getServerSideProps() {
+    const allTasks = await getAllTasks();
+    return {
+        props: {
+            allTasks,
+        },
+    };
+}
 
 export default function AllTasks({ allTasks }) {
     return (
@@ -18,7 +18,7 @@ export default function AllTasks({ allTasks }) {
             <Head>
                 <title>All Tasks</title>
             </Head>
-            {/* <TaskList allTasks={allTasks} /> */}
+            <TaskList allTasks={allTasks} />
         </div>
     );
 }
