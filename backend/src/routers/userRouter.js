@@ -68,10 +68,7 @@ userRouter.post("/api/users", async (req, res) => {
             httpOnly: true,
             sameSite: "none",
             secure: true,
-            domain: "localhost",   
-            path: "/",
          });
-        //  console.log(token.token)
         res.status(201).send({ user, token });
         sendWelcomeEmail(req.body.name, req.body.email);
     } catch (error) {

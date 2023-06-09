@@ -1,8 +1,13 @@
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw";
+if(process.env.NEXT_PUBLIC_DEV === 'true') {
+    var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+} else {
+    var token = process.env.NEXT_PUBLIC_TOKEN_PROD
+}
+const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const loginUser = async (email , password) => {
     try {
-        const response = await fetch(`${process.env.BACKEND_ADDRESS}/api/users/login`, {
+        const response = await fetch(`${backendApiUrl}/api/users/login`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -24,7 +29,7 @@ export const loginUser = async (email , password) => {
 }
 export const signUpUser = async (name, email, password, age) => {
     try {
-        await fetch(`${process.env.BACKEND_ADDRESS}/api/users`, {
+        await fetch(`${backendApiUrl}/api/users`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
