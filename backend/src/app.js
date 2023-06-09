@@ -35,7 +35,7 @@ app.options("/tasks/:id", (req, res, next) => {
 
 // })
 app.use(cors({
-        origin: "https://task-manager-3f9j54ilp-kasey-purvor.vercel.app/",
+        origin: "*",
         credentials: true,
     })
 );
