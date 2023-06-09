@@ -13,17 +13,19 @@ export const loginUser = async (email , password) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({
             email: email,
             password: password,
         })
     }).catch((error) => console.log(error));
+    alert(res.cookie.jwt)
     const responseJSON = await response.json();
     return responseJSON.token.token
     } catch(e) {
         console.log(e)
     }
+   
+    
 }
 export const signUpUser = async (name, email, password, age) => {
     try {
@@ -33,7 +35,6 @@ export const signUpUser = async (name, email, password, age) => {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
-            credentials: "include",
             body: JSON.stringify({
                 name: name,
                 email: email,

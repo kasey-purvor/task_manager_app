@@ -69,7 +69,6 @@ userRouter.post("/api/users", async (req, res) => {
             sameSite: "none",
             secure: true,
          });
-         res.setHeader("Access-Control-Allow-Origin", "*");
         res.status(201).send({ user, token });
         sendWelcomeEmail(req.body.name, req.body.email);
     } catch (error) {
@@ -84,10 +83,11 @@ userRouter.post("/api/users/login", async (req, res) => {
         res.cookie("jwt", token.token, { 
             httpOnly: true,
             sameSite: "none",
-            secure: true
+            secure: true,
+            domain: "localhost",   
+            path: "/",
          });
         //  console.log(token.token)
-        res.setHeader("Access-Control-Allow-Origin", "*");
         res.status(200).send({ user, token });
     } catch (e) {
         res.status(400).send(e);
