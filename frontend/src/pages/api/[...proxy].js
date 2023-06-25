@@ -5,6 +5,12 @@
             bodyParser: false,
         },
     };
+    if (process.env.NEXT_PUBLIC_DEV === 'true') {
+        var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+    } else {
+        var token = NEXT_PUBLIC_TOKEN_PROD
+    }
+    const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
     const pathRewrite = (path, req) => {
         if (req.url === "/api/signin") {
             return path.replace("/api/signin", "/api/users/login");
@@ -70,7 +76,7 @@
             changeOrigin: true,
             selfHandleResponse: true,
             headers: {
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5YjZjMzg0NTUwM2NmNDE0OGVkMDEiLCJpYXQiOjE2ODU5NjYwNzF9.0FQ09fYPyZUUIlD-MaJvN29XkYquXhMKgV6HjqJQuqw"
+                "auth-token": token
             },
             pathRewrite: pathRewrite,
             // onProxyReqWs: async (proxyReq, req, socket, options, head) => {
