@@ -7,10 +7,10 @@ const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const loginUser = async (email , password) => {
     try {
-        const response = await fetch(`${backendApiUrl}/api/users/login`, {
+        const response = await fetch(`/api/signin`, {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -18,21 +18,17 @@ export const loginUser = async (email , password) => {
             password: password,
         })
     }).catch((error) => console.log(error));
-    alert(res.cookie.jwt)
-    const responseJSON = await response.json();
-    return responseJSON.token.token
+
     } catch(e) {
         console.log(e)
-    }
-   
-    
+    }  
 }
 export const signUpUser = async (name, email, password, age) => {
     try {
-        await fetch(`${backendApiUrl}/api/users`, {
+        await fetch(`/api/signup`, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
