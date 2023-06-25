@@ -1,16 +1,19 @@
     import { createProxyMiddleware, responseInterceptor } from "http-proxy-middleware";
     import Cookies from "cookies";
+
     export const config = {
         api: {
             bodyParser: false,
         },
     };
+
     if (process.env.NEXT_PUBLIC_DEV === 'true') {
         var token = process.env.NEXT_PUBLIC_TOKEN_DEV
     } else {
         var token = NEXT_PUBLIC_TOKEN_PROD
     }
     const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
+    
     const pathRewrite = (path, req) => {
         if (req.url === "/api/signin") {
             return path.replace("/api/signin", "/api/users/login");
@@ -71,7 +74,7 @@
         var jwt = await cookies.get("auth-token");
         console.log("have i got the http-cookies from the req?", jwt);
         const proxy = createProxyMiddleware({   
-            target: "http://localhost:3000",
+            target: backendApiUrl,
             autoRewrite: false,
             changeOrigin: true,
             selfHandleResponse: true,
