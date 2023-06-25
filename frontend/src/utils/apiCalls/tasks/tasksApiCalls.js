@@ -1,12 +1,11 @@
 if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+    var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
 } else {
     var token = process.env.NEXT_PUBLIC_TOKEN_PROD
+    var frontendApiUrl = process.env.VERCEL_URL
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
-const frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
-
-// const token = sessionStorage.getItem("token");
 
 export const getAllTasks = async () => {
     const response = await fetch(`${frontendApiUrl}/api/allTasks`, {
