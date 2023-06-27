@@ -1,4 +1,7 @@
-import Homepage from '@/components/homepage'
+import Image from 'next/image'
+import MarkdownRenderer from 'react-markdown-renderer'
+// import styles from './../styles/homepage.module.css'
+import PageContainer from '@/components/pageContainer'
 
 const text = `# **Task Manager App**
 ## By Kasey Purvor
@@ -41,7 +44,9 @@ I am in the process of implementing the use of http-only cookies to store the JS
 export default function Home() {
   return (
     <main>
-        <Homepage/>
+        <PageContainer>
+            <MarkdownRenderer markdown={text} className='bg-orange-300 rounded-3xl p-5 max-w-3xl'/>
+       </PageContainer>
     </main>
   )
 }
