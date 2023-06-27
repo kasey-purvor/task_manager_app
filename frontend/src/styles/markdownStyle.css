@@ -1,0 +1,109 @@
+/* Markdown Styles */
+
+/* Reset default margins and paddings */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+}
+main {
+    padding : 2em;
+}
+/* Set base font styles */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Headings */
+h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin-bottom: 0.5em;
+}
+
+h4 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
+h5 {
+    font-size: 0.83em;
+    margin-bottom: 0.5em;
+}
+
+h6 {
+    font-size: 0.67em;
+    margin-bottom: 0.5em;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 1em;
+}
+
+/* Lists */
+ol,
+ul {
+    margin-bottom: 1em;
+    margin-left: 2em;
+    list-style-type: disc;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Bold and Italic Text */
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+/* Code Blocks */
+pre {
+    background-color: #f8f8f8;
+    padding: 1em;
+    overflow-x: auto;
+}
+
+code {
+    font-family: Consolas, monospace;
+}
+
+/* Blockquotes */
+blockquote {
+    margin-left: 2em;
+    color: #666;
+}
+
+blockquote p {
+    font-style: italic;
+}
