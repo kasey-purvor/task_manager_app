@@ -35,7 +35,7 @@ export const deleteTask = async (_id) => {
     await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
         },
     }).catch((error) => alert(error));
 };
@@ -44,7 +44,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
     await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -59,7 +59,7 @@ export const saveTask = async (taskDescription, due) => {
     await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
