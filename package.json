@@ -14,12 +14,12 @@
   "keywords": [],
   "author": "KP",
   "license": "ISC",
-  "dependencies": {
-    "http-proxy": "^1.18.1"
-  },
   "devDependencies": {
     "env-cmd": "^10.1.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "cookies": "^0.8.0"
   }
 }

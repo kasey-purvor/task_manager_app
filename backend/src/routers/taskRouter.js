@@ -19,6 +19,29 @@ taskRouter.post("/api/tasks", auth, async (req, res) => {
     }
 });
 
+taskRouter.get("/api/allTasks", async (req, res) => {
+    try{
+        const allTasks = await Task.find({});
+        console.log("dynamic page  is collecting all tasks")
+        // console.log(allTasks)
+        res.status(200).send(allTasks);
+    } catch(e){
+        console.log(e)
+        res.status(400).send(e);
+    }
+})
+taskRouter.get("/api/getTask/:id", async (req, res) => {
+    const _id = req.params.id;
+    try {
+        const task = await Task.findOne({ _id : _id });
+        if (!task) {
+            return res.status(404).send("task not found");
+        }
+        res.status(201).send(task);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
 // sort=field_asc
 taskRouter.get("/api/tasks", auth, async (req, res) => {
     const match = {};

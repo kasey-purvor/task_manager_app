@@ -8,7 +8,7 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
-    const response = await fetch(`${frontendApiUrl}/api/allTasks`, {
+    const response = await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
