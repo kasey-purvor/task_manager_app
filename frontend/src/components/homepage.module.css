@@ -1,89 +1,54 @@
-/* Markdown Styles */
-
-/* Reset default margins and paddings */
-
-/* Set base font styles */
-
-/* Headings */
-h1 {
+.homepage h1 {
     font-size: 2em;
     margin-bottom: 0.5em;
 }
 
-h2 {
+.homepage h2 {
     font-size: 1.5em;
     margin-bottom: 0.5em;
 }
 
-h3 {
+.homepage h3 {
     font-size: 1.17em;
     margin-bottom: 0.5em;
 }
 
-h4 {
+.homepage h4 {
     font-size: 1em;
     margin-bottom: 0.5em;
 }
 
-h5 {
+.homepage h5 {
     font-size: 0.83em;
     margin-bottom: 0.5em;
 }
 
-h6 {
+.homepage h6 {
     font-size: 0.67em;
     margin-bottom: 0.5em;
 }
 
 /* Paragraphs */
-p {
+.homepage p {
     margin-bottom: 1em;
 }
 
 /* Lists */
-ol,
-ul {
+.homepage ol,
+.homepage ul {
     margin-bottom: 1em;
     margin-left: 2em;
     list-style-type: disc;
 }
 
 /* Links */
-a {
+.homepage a {
     color: #007bff;
     text-decoration: underline;
 }
 
-a:hover {
+.homepage a:hover {
     color: #0056b3;
 }
 
 /* Bold and Italic Text */
-strong {
-    font-weight: bold;
-}
-
-em {
-    font-style: italic;
-}
-
-/* Code Blocks */
-pre {
-    background-color: #f8f8f8;
-    padding: 1em;
-    overflow-x: auto;
-}
-
-code {
-    font-family: Consolas, monospace;
-}
-
-/* Blockquotes */
-blockquote {
-    margin-left: 2em;
-    color: #666;
-}
-
-blockquote p {
-    font-style: italic;
-}

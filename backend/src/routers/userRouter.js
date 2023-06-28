@@ -95,8 +95,8 @@ userRouter.post("/api/users/login", async (req, res) => {
         console.log("User SignIn Successfull");
         res.status(200).send(token);
     } catch (e) {
-        console.log("User SingIn failed", req.body)
-        res.status(400).send(e);
+        console.log("User SingIn failed: ", e.message)
+        res.status(400).send({ "error": e });
     }
 });
 //logout user

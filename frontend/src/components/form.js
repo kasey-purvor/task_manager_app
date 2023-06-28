@@ -9,12 +9,13 @@ export default function Form({ formType }) {
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const formData = data.forms.filter((form) => form.type === formType)[0];
-    let token = '';
+    let response = undefined;
     const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        formType === 'signIn' ? token = await loginUser(email, password): token = await signUpUser(name, email, password, age);
-        router.push('/');
+        formType === 'signIn' ? response = await loginUser(email, password): response = await signUpUser(name, email, password, age);
+        alert(response);
+        // router.push('/');
         // sessionStorage.setItem('token', token);
     };
     const renderedForm = (
