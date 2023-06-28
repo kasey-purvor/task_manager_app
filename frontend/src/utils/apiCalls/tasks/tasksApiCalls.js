@@ -3,7 +3,7 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
 } else {
     var token = process.env.NEXT_PUBLIC_TOKEN_PROD
-    var frontendApiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    var frontendApiUrl = `https://${process.env.VERCEL_URL}`
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
