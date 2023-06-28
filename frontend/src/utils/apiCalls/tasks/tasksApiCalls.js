@@ -20,6 +20,7 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (_id) => {
+    console.log("fronetendApiUrl",frontendApiUrl)
     const response = await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
@@ -29,16 +30,20 @@ export const getTask = async (_id) => {
     }).catch((error) => console.log(error));
     const task = await response.json();
     if(task) {console.log("taskAPI Fetch Call: get task", task)}
+    
     return task;
 };
 
 export const deleteTask = async (_id) => {
+    console.log("taskAPI Fetch Call: delete task. ID: ", _id);
+    console.log("fronetendApiUrl",frontendApiUrl)
     await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
             // Authorization: `Bearer ${token}`,
         },
     }).catch((error) => alert(error));
+    
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {

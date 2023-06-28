@@ -4,6 +4,31 @@ const Task = require("../models/task");
 const taskRouter = express.Router();
 const auth = require("../middleware/authentication");
 
+// inital routes to allow vercel build 
+taskRouter.get("/api/allTasks", async (req, res) => {
+    try{
+        const allTasks = await Task.find({});
+        console.log("dynamic page  is collecting all tasks")
+        // console.log(allTasks)
+        res.status(200).send(allTasks);
+    } catch(e){
+        console.log(e)
+        res.status(400).send(e);
+    }
+})
+// inital routes to allow vercel build 
+taskRouter.get("/api/getTask/:id", async (req, res) => {
+    const _id = req.params.id;
+    try {
+        const task = await Task.findOne({ _id : _id });
+        if (!task) {
+            return res.status(404).send("task not found");
+        }
+        res.status(201).send(task);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
 taskRouter.post("/api/tasks", auth, async (req, res) => {
     const task = new Task({
         ...req.body,
@@ -19,29 +44,7 @@ taskRouter.post("/api/tasks", auth, async (req, res) => {
     }
 });
 
-taskRouter.get("/api/allTasks", async (req, res) => {
-    try{
-        const allTasks = await Task.find({});
-        console.log("dynamic page  is collecting all tasks")
-        // console.log(allTasks)
-        res.status(200).send(allTasks);
-    } catch(e){
-        console.log(e)
-        res.status(400).send(e);
-    }
-})
-taskRouter.get("/api/getTask/:id", async (req, res) => {
-    const _id = req.params.id;
-    try {
-        const task = await Task.findOne({ _id : _id });
-        if (!task) {
-            return res.status(404).send("task not found");
-        }
-        res.status(201).send(task);
-    } catch (e) {
-        res.status(400).send(e);
-    }
-})
+
 // sort=field_asc
 taskRouter.get("/api/tasks", auth, async (req, res) => {
     const match = {};
@@ -86,6 +89,7 @@ taskRouter.get("/api/tasks/:id", auth, async (req, res) => {
         if (!task) {
             return res.status(404).send("task not found");
         }
+        console.log("got specific task successfully")
         res.status(201).send(task);
     } catch (e) {
         res.status(400).send(e);
@@ -103,6 +107,7 @@ taskRouter.patch("/api/tasks/:id", auth, async (req, res) => {
             task[update] = req.body[update];
         });
         await task.save();
+        console.log("updated task successfully");
         res.status(201).send(task);
     } catch (e) {
         res.send(e);
@@ -116,6 +121,7 @@ taskRouter.delete("/api/tasks/:id", auth, async (req, res) => {
             return res.status(404).send("task not found");
         }
         await task.remove();
+        console.log("deleted task successfully");
         res.status(302);
         res.send("task Removed");
     } catch (e) {
