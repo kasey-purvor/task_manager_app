@@ -10,13 +10,14 @@ export default async function handler(req, res) {
     token ? console.log("Finally it bloody worked", token) : console.log("cookie not recieved")
     req.headers["auth-token"] = token;
     req.headers.cookies = ""
-    await proxy(req, res, (err) => {
+    const response = await proxy(req, res, (err) => {
         if (err) {
             console.log("error called in the proxy call itself");
             throw err;
         }
         throw new Error(`Request '${req.url}' is not proxied! We should never reach here!`);
     });
+    res.send(response);
 }
 
 export const config = {

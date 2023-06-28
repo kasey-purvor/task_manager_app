@@ -35,7 +35,8 @@ const proxyResHAndler = (proxyRes, req, res) => {
                 });
             }
             res.send(dataJSON);
-            return;
+            console.log(dataJSON)
+            return dataJSON;
         } catch (e) {
             res.send(e);
         }
