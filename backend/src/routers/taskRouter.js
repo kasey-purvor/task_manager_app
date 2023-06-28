@@ -74,7 +74,7 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
                 sort,
             },
         });
-        console.log("got all Tasks successfully");
+        console.log("got all Tasks successfully", req.user.tasks);
         res.status(200).send(req.user.tasks);
     } catch (e) {
         console.log("getAllTasks failed", e)

@@ -4,7 +4,7 @@ const Cookies = require('cookies')
 const auth = async (req, res, next) => {
     try {
         const cookies = new Cookies(req, res);
-        console.log("cookies", req.headers)
+        // console.log("cookies", req.headers)
         const token = await req.headers["auth-token"]
         // console.log("attempt to authenticate with:", token)
         const decoded = await jwt.verify(token, process.env.JSON_WEB_TOKEN_KEY )
