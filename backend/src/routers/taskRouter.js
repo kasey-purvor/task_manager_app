@@ -64,16 +64,18 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
         // })
         // res.status(200).send(tasks)
         // orrr you could use the new ref property from mongoose
-        await req.user.populate({
-            
-            path: "tasks",
-            match, // populate is useful here as it allows req's without a "completed" param. It returns all tasks instead of giving errors
-            options: {
-                limit: parseInt(req.query.limit),
-                skip: parseInt(req.query.skip),
-                sort,
-            },
-        });
+        // await req.user.populate({          
+        //     path: "tasks",
+        //     match, // populate is useful here as it allows req's without a "completed" param. It returns all tasks instead of giving errors
+        //     options: {
+        //         limit: parseInt(req.query.limit),
+        //         skip: parseInt(req.query.skip),
+        //         sort,
+        //     },
+        // });
+        req.user.tasks = {
+            "task":"this is a mock user task. If this is recieved then it could be a problem with mongoose populating ting tasks "
+        }
         console.log("got all Tasks successfully");
         res.status(200).send(req.user.tasks);
     } catch (e) {
