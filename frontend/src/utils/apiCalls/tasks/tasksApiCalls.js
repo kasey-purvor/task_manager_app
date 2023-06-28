@@ -3,8 +3,9 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
 } else {
     var token = process.env.NEXT_PUBLIC_TOKEN_PROD
-    var frontendApiUrl = `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`   
+    var frontendApiUrl = `https://${process.env.VERCEL_URL}`
 }
+const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
     const response = await fetch(`${frontendApiUrl}/api/tasks`, {
