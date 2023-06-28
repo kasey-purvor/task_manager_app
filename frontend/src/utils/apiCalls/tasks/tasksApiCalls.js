@@ -28,6 +28,7 @@ export const getTask = async (_id) => {
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
+    if(task) {console.log("taskAPI Fetch Call: get task", task)}
     return task;
 };
 

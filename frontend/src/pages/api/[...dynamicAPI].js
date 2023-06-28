@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         }
         throw new Error(`Request '${req.url}' is not proxied! We should never reach here!`);
     });
-    res.send(response);
+    console.log("API route data response, returned from proxy", response);
 }
 
 export const config = {
