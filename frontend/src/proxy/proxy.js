@@ -34,6 +34,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
                     path: "/",
                 });
             }
+            console.log(dataJSON)
             res.send(dataJSON);
             return;
         } catch (e) {
