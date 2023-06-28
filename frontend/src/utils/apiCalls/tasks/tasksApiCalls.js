@@ -1,17 +1,19 @@
 if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+    var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
 } else {
     var token = process.env.NEXT_PUBLIC_TOKEN_PROD
+    var frontendApiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
-// const token = sessionStorage.getItem("token");
-
 export const getAllTasks = async () => {
-    const response = await fetch(`${backendApiUrl}/api/tasks`, {
+    console.log("fronetendApiUrl",frontendApiUrl)
+    const response = await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
     const allTasks = await response.json();
@@ -19,31 +21,37 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (_id) => {
-    const response = await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
+    console.log("fronetendApiUrl",frontendApiUrl)
+    const response = await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${token}`,
-            // "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
+    if(task) {console.log("taskAPI Fetch Call: get task", task)}
+    
     return task;
 };
 
 export const deleteTask = async (_id) => {
-    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
+    console.log("taskAPI Fetch Call: delete task. ID: ", _id);
+    console.log("fronetendApiUrl",frontendApiUrl)
+    await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
         },
     }).catch((error) => alert(error));
+    
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
+    await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -55,10 +63,10 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 };
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch(`${backendApiUrl}/api/tasks`, {
+    await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({

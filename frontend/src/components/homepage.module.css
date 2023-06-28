@@ -1,0 +1,54 @@
+.homepage h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.homepage h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.homepage h3 {
+    font-size: 1.17em;
+    margin-bottom: 0.5em;
+}
+
+.homepage h4 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
+.homepage h5 {
+    font-size: 0.83em;
+    margin-bottom: 0.5em;
+}
+
+.homepage h6 {
+    font-size: 0.67em;
+    margin-bottom: 0.5em;
+}
+
+/* Paragraphs */
+.homepage p {
+    margin-bottom: 1em;
+}
+
+/* Lists */
+.homepage ol,
+.homepage ul {
+    margin-bottom: 1em;
+    margin-left: 2em;
+    list-style-type: disc;
+}
+
+/* Links */
+.homepage a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.homepage a:hover {
+    color: #0056b3;
+}
+
+/* Bold and Italic Text */

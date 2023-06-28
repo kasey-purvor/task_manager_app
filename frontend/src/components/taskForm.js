@@ -12,6 +12,7 @@ export default function TaskForm({ taskData, formEdit }) {
     async function handleEdit(e) {
         e.preventDefault();
         editTask(taskData._id, taskDescription, completed, due).then(alert('Task Updated'));
+        router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
     async function handleDelete(e) {
         e.preventDefault();
@@ -28,7 +29,7 @@ export default function TaskForm({ taskData, formEdit }) {
         var dueDataHTMLLine = (
             <>
                 <p className='text-medium text-gray-800 mt-2'>Task Due: </p>
-                <p className='text-sm text-gray-500'>{taskData.due}</p>
+                <p className='text-sm text-gray-500'>{due}</p>
             </>
         );
     }
@@ -52,10 +53,10 @@ export default function TaskForm({ taskData, formEdit }) {
                 <input
                     type='checkbox'
                     name='completed'
-                    defaultChecked={taskData.completed}
+                    defaultChecked={completed}
                     onChange={(e) => setCompleted(e.target.checked)}
                     className='py-3 px-4 block w-auto  border-gray-800 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-grey-150text-gray-400'
-                    placeholder={`${taskData.due}`}
+                    placeholder={`${due}`}
                     aria-describedby='hs-input-helper-text'
                 />
                 <p
@@ -135,8 +136,8 @@ export default function TaskForm({ taskData, formEdit }) {
                     <input
                         type='datetime-local'
                         name='due'
-                        placeholder={`${taskData.due}`}
-                        defaultValue={`${taskData.due}`}
+                        placeholder={`${due}`}
+                        defaultValue={`${due}`}
                         onChange={(e) => setDue(e.target.value)}
                         aria-describedby='hs-input-helper-text'
                         className='py-3 px-4 block w-full  border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500bg-grey-150border-gray-700 text-gray-400'

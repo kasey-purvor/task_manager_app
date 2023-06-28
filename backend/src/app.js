@@ -13,15 +13,15 @@ const app = express();
 const port = process.env.PORT;
 console.log("This is the backened ROOT", process.cwd());
 
-app.options("/tasks/:id", (req, res, next) => {
-    // Set CORS headers for preflight request
-    res.header("Access-Control-Allow-Origin", "https://localhost:3001");
-    res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH");
-    res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
+// app.options("/tasks/:id", (req, res, next) => {
+//     // Set CORS headers for preflight request
+//     res.header("Access-Control-Allow-Origin", "https://localhost:3001");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH");
+//     res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
 
-    // Respond with 204 No Content
-    res.sendStatus(204);
-});
+//     // Respond with 204 No Content
+//     res.sendStatus(204);
+// });
 // app.options('/users/', (req, res, next) => {
 //     res.header("Access-Control-Allow-Origin", "https://localhost:3001");
 //     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE,PATCH");
@@ -43,5 +43,6 @@ app.use(cookieParser());
 app.use(express.json()); // makes express auto parse JSON in the body of the request
 app.use(taskRouter);
 app.use(userRouter);
+// app.use(proxyReqHandler);
 
 module.exports = app;

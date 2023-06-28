@@ -64,17 +64,17 @@ userRouter.post("/api/users", async (req, res) => {
     try {
         await user.save();
         const token = await user.generateAuthTokenAndSaveToUser();
-        res.cookie("jwt", token.token, { 
-            httpOnly: true,
-            sameSite: "none",
-            secure: true,
-            domain: "localhost",   
-            path: "/",
-         });
-        //  console.log(token.token)
-        res.status(201).send({ user, token });
-        sendWelcomeEmail(req.body.name, req.body.email);
+        // res.cookie("jwt", token.token, {
+        //     httpOnly: true,
+        //     sameSite: "lax",
+        //     // secure: true,
+        //  });
+        
+        // sendWelcomeEmail(req.body.name, req.body.email);
+        console.log("User Signup Successfull");
+        res.status(201).send(token);
     } catch (error) {
+        console.log("User Singup failed",error)
         res.status(400).send(error);
     }
 });
@@ -82,18 +82,21 @@ userRouter.post("/api/users", async (req, res) => {
 userRouter.post("/api/users/login", async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-        const token = await user.generateAuthTokenAndSaveToUser(); 
-        res.cookie("jwt", token.token, { 
-            httpOnly: true,
-            sameSite: "none",
-            secure: true,
-            domain: "localhost",   
-            path: "/",
-         });
+        const token = await user.generateAuthTokenAndSaveToUser();
+
+        // res.cookie("auth-token", token.token, {
+        //     httpOnly: true,
+        //     sameSite: "none",
+        //     // secure: true,
+        //     // domain: "localhost",
+        //     // path: "/",
+        //  });
         //  console.log(token.token)
-        res.status(200).send({ user, token });
+        console.log("User SignIn Successfull");
+        res.status(200).send(token);
     } catch (e) {
-        res.status(400).send(e);
+        console.log("User SingIn failed: ", e.message)
+        res.status(400).send({ "error": e });
     }
 });
 //logout user

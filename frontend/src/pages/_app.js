@@ -7,7 +7,7 @@ dynamic(() => import('preline'), {
 })
 export default function App({ Component, pageProps }) {
     return (
-        <div className='bg-gray-300 h-screen'>
+        <div className='bg-gray-300 h-full'>
             <Navbar/>
             <Component {...pageProps} />
         </div>

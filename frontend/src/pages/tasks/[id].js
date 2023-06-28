@@ -1,6 +1,7 @@
-import { getAllTaskIds } from '@/utils/functions/tasksFunctions';
-import { getTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
+import { getAllTaskIds, getSingleTask }  from '@/utils/functions/tasksFunctions';
+// import { getTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
 import { useState } from 'react';
+import { getFakeTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
 
 import TaskEditForm from '@/components/taskForm';
 import PageContainer from '@/components/pageContainer';
@@ -12,10 +13,11 @@ export async function getStaticPaths() {
     };
 }
 export async function getStaticProps({ params }) {
-    const taskData = await getTask(params.id);
+    const taskData = await getSingleTask(params.id);
+    // const taskData = getFakeTask()
     return {
         props: {
-            taskData,
+            taskData
         },
     };
 }
@@ -24,7 +26,6 @@ export default function TaskDetailsPage({ taskData }) {
 
     return (
         <PageContainer>    
-               
             <TaskEditForm
                 taskData={taskData}
                 formEdit={true}

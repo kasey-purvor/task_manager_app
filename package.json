@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": " env-cmd -f ./config/dev.env concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev -- --port=3001 \"",
+    "dev": " env-cmd -f ./config/dev.env concurrently \"cd backend && npm run dev\" ",
     "test": "env-cmd -f ./config/test.env  jest --watch --runInBand --detectOpenHandles"
   },
   "jest": {
@@ -14,12 +14,12 @@
   "keywords": [],
   "author": "KP",
   "license": "ISC",
-  "dependencies": {
-   
-  },
   "devDependencies": {
     "env-cmd": "^10.1.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "cookies": "^0.8.0"
   }
 }
