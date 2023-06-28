@@ -6,7 +6,7 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var frontendApiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
-
+// trivial change 
 export const getAllTasks = async () => {
     console.log("fronetendApiUrl",frontendApiUrl)
     const response = await fetch(`${frontendApiUrl}/api/tasks`, {
