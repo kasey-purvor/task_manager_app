@@ -24,8 +24,9 @@ const text = `# **Task Manager App**
     * Tailwind.css
     * Cookies
     
-### **Update!** 
+### **Updates!** 
 * During my latest branch merge the getAllTasks fetch call has began causing client side errors. For now I have sent task requests straight to the backend server, bypassing the proxy, so that the app functions with 1 universal user. As I am unable to handle jwt cookies with the proxy. The error is complex as the proxy handles User requests fine. Currently investigating. 
+* Being new to Next.js I was unaware dynamic pages were only rendered at build time in production, this is not the case in development mode. This means the edit page for newly created tasks do not exist. Need to implement a server side rendering feature. 
 
 ## **Structure**
 * ### **Backend**
