@@ -24,7 +24,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
         try {
             const dataJSON = await JSON.parse(Buffer.concat(data).toString("utf-8"));
             dataJSON ? console.log(" data returned from API") : null;
-            await res.send(dataJSON);
+            
             const cookies = new Cookies(req, res);
             if (userCookieEdit) {
                 console.log("setting cookie to client");
@@ -34,12 +34,13 @@ const proxyResHAndler = (proxyRes, req, res) => {
                     // domain: "localhost",
                     path: "/",
                 });
-            }
-            
+            }         
             console.log("Proxy Sever Response", dataJSON)
+            await res.send(dataJSON);
             return dataJSON;
         } catch (e) {
             res.send(e);
+            return e
         }
     });
 };

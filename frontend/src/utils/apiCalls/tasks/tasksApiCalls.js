@@ -12,7 +12,6 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
-    console.log("fronetendApiUrl",frontendApiUrl)
     const response = await fetch(`${frontendApiUrl}/api/tasks/649d70cf138d851eaa135e8d`, {
         method: "GET",
         headers: {
@@ -20,13 +19,16 @@ export const getAllTasks = async () => {
             "Content-Type": "application/json",
         },
         signal
-    }).catch((error) => console.log(error));
+    }).catch((error) => {
+        console.log("Error in getAllTasks fetch call: ", error)
+        throw new Error(error);
+    });
     const allTasks = await response.json();
+    console.log("task api call fetch worked", allTasks)
     return allTasks;
 };
 
 export const getTask = async (_id) => {
-    console.log("fronetendApiUrl",frontendApiUrl)
     const response = await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
@@ -41,8 +43,6 @@ export const getTask = async (_id) => {
 };
 
 export const deleteTask = async (_id) => {
-    console.log("taskAPI Fetch Call: delete task. ID: ", _id);
-    console.log("fronetendApiUrl",frontendApiUrl)
     await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
