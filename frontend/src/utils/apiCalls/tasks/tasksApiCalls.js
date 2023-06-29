@@ -13,7 +13,7 @@ const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
     console.log("fronetendApiUrl",frontendApiUrl)
-    const response = await fetch(`${frontendApiUrl}/api/tasks`, {
+    const response = await fetch(`${frontendApiUrl}/api/tasks/649d70cf138d851eaa135e8d`, {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
