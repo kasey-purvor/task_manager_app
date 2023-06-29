@@ -8,12 +8,12 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
-    console.log("fronetendApiUrl",frontendApiUrl)
-    const response = await fetch(`${frontendApiUrl}/api/tasks`, {
+    const response = await fetch(`${backendApiUrl}/api/tasks`, {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "auth-token": token
         },
     }).catch((error) => console.log(error));
     const allTasks = await response.json();
@@ -21,12 +21,12 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (_id) => {
-    console.log("fronetendApiUrl",frontendApiUrl)
-    const response = await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
+    const response = await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "auth-token": token
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
@@ -36,23 +36,23 @@ export const getTask = async (_id) => {
 };
 
 export const deleteTask = async (_id) => {
-    console.log("taskAPI Fetch Call: delete task. ID: ", _id);
-    console.log("fronetendApiUrl",frontendApiUrl)
-    await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "DELETE",
         headers: {
             // Authorization: `Bearer ${token}`,
+            "auth-token": token
         },
     }).catch((error) => alert(error));
     
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
             // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "auth-token": token
         },
         body: JSON.stringify({
             description: taskDescription,
@@ -63,11 +63,12 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 };
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch(`${frontendApiUrl}/api/tasks`, {
+    await fetch(`${backendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
             // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "auth-token": token
         },
         body: JSON.stringify({
             description: taskDescription,
