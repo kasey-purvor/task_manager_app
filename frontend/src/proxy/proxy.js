@@ -34,7 +34,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
                     path: "/",
                 });
             }
-            await res.send(dataJSON);
+            res.send(dataJSON);
             console.log("Proxy Sever Response", dataJSON)
             return dataJSON;
         } catch (e) {
