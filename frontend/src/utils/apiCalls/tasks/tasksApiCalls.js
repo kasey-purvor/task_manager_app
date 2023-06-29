@@ -1,3 +1,7 @@
+const controller = new AbortController();
+const signal = controller.signal;
+setTimeout(() => controller.abort(), 10000); // 10 seconds
+
 if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV
     var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
@@ -15,6 +19,7 @@ export const getAllTasks = async () => {
             // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
+        signal
     }).catch((error) => console.log(error));
     const allTasks = await response.json();
     return allTasks;
