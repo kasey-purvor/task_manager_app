@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     console.log("API call");
     const cookies = new Cookies(req, res);
     const token = cookies.get("auth-token");
-    token ? console.log("Finally it bloody worked", token) : console.log("cookie not recieved")
+    token ? console.log("Finally it bloody worked", token) : console.log("cookie not recieved from client")
     req.headers["auth-token"] = token;
     req.headers.cookies = ""
     const response = await proxy(req, res, (err) => {
