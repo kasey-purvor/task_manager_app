@@ -5,6 +5,7 @@ import PageContainer from '@/components/pageContainer'
 
 const text = `# **Task Manager App**
 ## *By Kasey Purvor*
+### [Please see Github Page](https://github.com/kasey-purvor/task_manager_app)
 #### What started as a node.js course building a backend API, that I slowly completed part time, turned into something I wanted to finish and add additional features as well as a Next.JS / React front end. Hence the rather large initial commit containing most of the backened. I am not an experienced frontend developer, it's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exersize in bringing together a full stack project using the technologies I am most interested in.
 
 ## **Project Description**
