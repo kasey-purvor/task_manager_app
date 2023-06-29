@@ -53,6 +53,9 @@ const pathRewrite = (path, req) => {
 };
 const proxy = createProxyMiddleware({
     target: backendApiUrl,
+    timeout: 10000,
+    proxyTimeout: 10000,
+    logger: console,
     autoRewrite: false,
     changeOrigin: true,
     selfHandleResponse: true,
@@ -61,5 +64,12 @@ const proxy = createProxyMiddleware({
     },
     pathRewrite: pathRewrite,
     onProxyRes: proxyResHAndler,
+    on: {
+        error: (err, req, res) => {
+            console.log("error",err);
+            console.log("req headers", req.headers)
+            console.log("res headers" , res.headers)
+        }
+    }
 });
 export default proxy;
