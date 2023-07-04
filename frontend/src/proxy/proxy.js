@@ -8,7 +8,7 @@ if (process.env.NEXT_PUBLIC_DEV === "true") {
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
-const proxyResHAndler = async (proxyRes, req, res) => {
+const proxyResHAndler = (proxyRes, req, res) => {
     console.log("Proxy Server hardcoded Token: ", token )
     const pathName = req.url;
     var userCookieEdit = false;
@@ -16,12 +16,12 @@ const proxyResHAndler = async (proxyRes, req, res) => {
         userCookieEdit = true;
     }
     var data = [];
-    await proxyRes.on("data", (chunk) => {
+    proxyRes.on("data", (chunk) => {
         console.log("concating data");
         data.push(chunk);
         console.log("data response", data);
     });
-    await proxyRes.on("end", async () => {
+    proxyRes.on("end", async () => {
         try {
             const dataJSON = await JSON.parse(Buffer.concat(data).toString("utf-8"));
             dataJSON ? console.log(" data returned from API") : null;
@@ -38,9 +38,9 @@ const proxyResHAndler = async (proxyRes, req, res) => {
             }         
             console.log("Proxy Sever Response", dataJSON)
             await res.send(dataJSON);
-            return;
+            return dataJSON;
         } catch (e) {
-            await res.send(e);
+            res.send(e);
             return e
         }
     });
