@@ -1,6 +1,6 @@
 import { createProxyMiddleware, responseInterceptor } from "http-proxy-middleware";
 import Cookies from "cookies";
-import zlib from "zlib";
+import zlib, { gzip } from "zlib";
 
 if (process.env.NEXT_PUBLIC_DEV === "true") {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV;
@@ -20,13 +20,14 @@ const proxyResHAndler = (proxyRes, req, res) => {
     proxyRes.on("data", (chunk) => {
         // console.log("concating data");
         data.push(chunk);
-        // console.log("data response", data);
+        console.log("data response", data);
     });
     proxyRes.on("end", () => {
         console.log("end of data event hit ");
-        // console.log(Buffer.concat(data).toString("hex"))
         let decompressedData = ""
-        process.env.NEXT_PUBLIC_DEV === "false" ?  decompressedData = zlib.gunzipSync(Buffer.concat(data)) : decompressedData = data;
+        const gzipCheck = (Buffer.concat(data).toString("hex")).slice(0,3)
+        console.log("gzipped data check", gzipCheck)
+        gzipCheck === "1f8b" ? decompressedData = zlib.gunzipSync(Buffer.concat(data)) : decompressedData = data;
 
         try {
             // console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
