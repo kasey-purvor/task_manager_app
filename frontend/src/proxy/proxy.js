@@ -9,7 +9,7 @@ if (process.env.NEXT_PUBLIC_DEV === "true") {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
 const proxyResHAndler = (proxyRes, req, res) => {
-    console.log("Proxy Server hardcoded Token: ", token )
+    console.log("Proxy Server hardcoded Token: ", token);
     const pathName = req.url;
     var userCookieEdit = false;
     if (pathName === "/api/users" || pathName === "/api/users/login") {
@@ -21,11 +21,11 @@ const proxyResHAndler = (proxyRes, req, res) => {
         data.push(chunk);
         console.log("data response", data);
     });
-    proxyRes.on("end", async () => {
+    proxyRes.on("end", () => {
         try {
-            const dataJSON = await JSON.parse(Buffer.concat(data).toString("utf-8"));
+            const dataJSON = JSON.parse(Buffer.concat(data).toString("utf-8"));
             dataJSON ? console.log(" data returned from API") : null;
-            
+
             const cookies = new Cookies(req, res);
             if (userCookieEdit) {
                 console.log("setting cookie to client");
@@ -35,13 +35,13 @@ const proxyResHAndler = (proxyRes, req, res) => {
                     // domain: "localhost",
                     path: "/",
                 });
-            }         
-            console.log("Proxy Sever Response", dataJSON)
-            await res.send(dataJSON);
+            }
+            console.log("Proxy Sever Response", dataJSON);
+            res.send(dataJSON);
             return dataJSON;
         } catch (e) {
             res.send(e);
-            return e
+            return e;
         }
     });
 };
@@ -69,10 +69,10 @@ const proxy = createProxyMiddleware({
     onProxyRes: proxyResHAndler,
     on: {
         error: (err, req, res) => {
-            console.log("error",err);
-            console.log("req headers", req.headers)
-            console.log("res headers" , res.headers)
-        }
-    }
+            console.log("error", err);
+            console.log("req headers", req.headers);
+            console.log("res headers", res.headers);
+        },
+    },
 });
 export default proxy;
