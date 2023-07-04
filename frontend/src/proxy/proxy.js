@@ -22,20 +22,22 @@ const proxyResHAndler = (proxyRes, req, res) => {
         console.log("data response", data);
     });
     proxyRes.on("end", () => {
+        console.log("end of data event hit ");
         try {
             const dataJSON = JSON.parse(Buffer.concat(data).toString("utf-8"));
+            console.log("Data has been turned into JSON ", dataJSON);
             dataJSON ? console.log(" data returned from API") : null;
 
-            const cookies = new Cookies(req, res);
-            if (userCookieEdit) {
-                console.log("setting cookie to client");
-                cookies.set("auth-token", dataJSON.token, {
-                    httpOnly: true,
-                    sameSite: "lax",
-                    // domain: "localhost",
-                    path: "/",
-                });
-            }
+            // if (userCookieEdit) {
+            //     const cookies = new Cookies(req, res);
+            //     console.log("setting cookie to client");
+            //     cookies.set("auth-token", dataJSON.token, {
+            //         httpOnly: true,
+            //         sameSite: "lax",
+            //         // domain: "localhost",
+            //         path: "/",
+            //     });
+            // }
             console.log("Proxy Sever Response", dataJSON);
             res.send(dataJSON);
             return dataJSON;
