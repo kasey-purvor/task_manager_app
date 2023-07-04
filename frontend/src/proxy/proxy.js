@@ -1,5 +1,6 @@
 import { createProxyMiddleware, responseInterceptor } from "http-proxy-middleware";
 import Cookies from "cookies";
+import util from "util";
 
 if (process.env.NEXT_PUBLIC_DEV === "true") {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV;
@@ -23,9 +24,14 @@ const proxyResHAndler = (proxyRes, req, res) => {
     });
     proxyRes.on("end", () => {
         console.log("end of data event hit ");
+        // console.log("data response in full", util.inspect(Buffer.concat(data), {
+        //     maxArrayLength: null,
+        //     breakLength: null
+        // }));
+        console.log(Buffer.concat(data).toString("hex"))
         // try {
-            console.log(Buffer.concat(data).toString())
-            const dataJSON = JSON.parse(Buffer.concat(data).toString());
+            console.log(Buffer.concat(data).toString("utf8"));
+            const dataJSON = JSON.parse(Buffer.concat(data).toString("utf8"));
             console.log("Data has been turned into JSON ", dataJSON);
             dataJSON ? console.log(" data returned from API") : null;
 
