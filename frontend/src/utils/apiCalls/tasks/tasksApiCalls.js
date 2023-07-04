@@ -18,7 +18,6 @@ export const getAllTasks = async () => {
             method: "GET",
             headers: {
                 // Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
             },
             // signal
         }).catch((error) => {
@@ -39,7 +38,6 @@ export const getTask = async (_id) => {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
@@ -63,7 +61,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
         method: "PATCH",
         headers: {
             // Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": "application/json ; charset=utf-8",
         },
         body: JSON.stringify({
             description: taskDescription,
@@ -78,7 +76,7 @@ export const saveTask = async (taskDescription, due) => {
         method: "POST",
         headers: {
             // Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": "application/json ; charset=utf-8",
         },
         body: JSON.stringify({
             description: taskDescription,
