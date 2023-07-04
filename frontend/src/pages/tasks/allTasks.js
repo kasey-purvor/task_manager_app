@@ -14,6 +14,7 @@ export async function getServerSideProps() {
         }
     } catch (e) {
         console.log("All tasks Page. getAllTasks failed: ", e)
+        return e
     }  
     
 }

@@ -9,7 +9,7 @@ export async function getStaticPaths() {
     const allTaskIds = await getAllTaskIds();
     return {
         paths: allTaskIds,
-        fallback: false,
+        fallback: 'blocking',
     };
 }
 export async function getStaticProps({ params }) {

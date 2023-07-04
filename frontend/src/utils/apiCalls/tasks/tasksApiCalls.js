@@ -12,13 +12,14 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const getAllTasks = async () => {
-    const response = await fetch(`${frontendApiUrl}/api/tasks/649d70cf138d851eaa135e8d`, {
+    console.log("FRONTEND URL is", frontendApiUrl)
+    const response = await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
-        signal
+        // signal
     }).catch((error) => {
         console.log("Error in getAllTasks fetch call: ", error)
         throw new Error(error);
