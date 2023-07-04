@@ -24,8 +24,8 @@ const proxyResHAndler = (proxyRes, req, res) => {
     proxyRes.on("end", () => {
         console.log("end of data event hit ");
         // try {
-            console.log(Buffer.concat(data).toString("utf-8"))
-            const dataJSON = JSON.parse(Buffer.concat(data).toString("utf-8"));
+            console.log(Buffer.concat(data).toString())
+            const dataJSON = JSON.parse(Buffer.concat(data).toString());
             console.log("Data has been turned into JSON ", dataJSON);
             dataJSON ? console.log(" data returned from API") : null;
 
