@@ -74,7 +74,7 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
         });
         console.log("got all Tasks successfully", req.user.tasks);
         res.set("content-type", "application/json; charset=utf-8");
-        console.log(res.getHeaders());
+        // console.log(res.getHeaders());
         res.status(200).send(req.user.tasks);
     } catch (e) {
         console.log("getAllTasks failed", e);
@@ -91,7 +91,7 @@ taskRouter.get("/api/tasks/:id", auth, async (req, res) => {
         }
         console.log("got specific task successfully");
         res.set("content-type", "application/json; charset=utf-8");
-        console.log(res.getHeaders());
+        // console.log(res.getHeaders());
         res.status(201).send(task);
     } catch (e) {
         res.status(400).send(e);

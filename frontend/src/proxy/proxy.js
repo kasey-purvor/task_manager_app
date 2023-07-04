@@ -18,39 +18,40 @@ const proxyResHAndler = (proxyRes, req, res) => {
     }
     var data = [];
     proxyRes.on("data", (chunk) => {
-        console.log("concating data");
+        // console.log("concating data");
         data.push(chunk);
-        console.log("data response", data);
+        // console.log("data response", data);
     });
     proxyRes.on("end", () => {
         console.log("end of data event hit ");
-        console.log(Buffer.concat(data).toString("hex"))
+        // console.log(Buffer.concat(data).toString("hex"))
         let decompressedData = ""
         process.env.NEXT_PUBLIC_DEV === "false" ?  decompressedData = zlib.gunzipSync(Buffer.concat(data)) : decompressedData = data;
 
-        // try {
-            console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
+        try {
+            // console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
             const dataJSON = JSON.parse(decompressedData.toString("utf8"));
-            console.log("Data has been turned into JSON ", dataJSON);
-            dataJSON ? console.log(" data returned from API") : null;
+            // console.log("Data has been turned into JSON ", dataJSON);
+            dataJSON ? console.log(" data was returned from backend API") : null;
 
-            // if (userCookieEdit) {
-            //     const cookies = new Cookies(req, res);
-            //     console.log("setting cookie to client");
-            //     cookies.set("auth-token", dataJSON.token, {
-            //         httpOnly: true,
-            //         sameSite: "lax",
-            //         // domain: "localhost",
-            //         path: "/",
-            //     });
-            // }
+            if (userCookieEdit) {
+                const cookies = new Cookies(req, res);
+                console.log("setting cookie to client. Token = ", dataJSON.token);
+                cookies.set("auth-token", dataJSON.token, {
+                    httpOnly: true,
+                    sameSite: "lax",
+                    // domain: "localhost",
+                    path: "/",
+                });
+                console.log("cookie set to client");
+            }
             console.log("Proxy Sever Response", dataJSON);
             res.send(dataJSON);
             return dataJSON;
-        // } catch (e) {
-        //     res.send(e);
-        //     return e;
-        // }
+        } catch (e) {
+            res.send(e);
+            return e;
+        }
     });
 };
 const pathRewrite = (path, req) => {
