@@ -8,7 +8,7 @@ const text = `# **Task Manager App**
 ### [Please see Github Page](https://github.com/kasey-purvor/task_manager_app)
 ## **Project Description**
 
-#### What started as a node.js course, building a backend API, that I slowly completed part time - turned into a full stack project with a Next.JS / React frontend. Hence the rather large initial commit. It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exersize in bringing together a full stack project using the technologies I am interested in.
+#### What started as a node.js course, building a backend API, that I slowly completed part time - turned into a full stack project with a Next.JS / React frontend. Hence the rather large initial commit. It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a full stack project using the technologies I am interested in.
 ### **Technologies**
 * **Backend**
     * Node.js
@@ -25,14 +25,13 @@ const text = `# **Task Manager App**
     * Cookies
     
 ### **Updates!** 
-* During my latest branch merge the getAllTasks fetch call has began causing client side errors. For now I have sent task requests straight to the backend server, bypassing the proxy, so that the app functions with 1 universal user. As I am unable to handle jwt cookies with the proxy. The error is complex as the proxy handles User requests fine. Currently investigating. 
+* While I implement my proxy server handling of cookies I have created one "universal user" meaning everyone can view and manage the same set of tasks as the same user. Cookies handling has been test and works, but the implementation was delayed by my last error - caused my my backend docker container sending data in GZIP compressed format.  
 ## **Structure**
 * ### **Backend**
-The Backened used node and express to manage the restful API. Mongoose is used to perform data sanitization and validation as well as handle the connections to a Mongo-Atlas DB. There are routes for CRUD operations for users and tasks. Emails are sent out when tasks are due and when users signup / cancel accounts. As well as the ability to upload a user avatar is desired. JSON webtokens are used for authentication and are verified using express middleware. Passwords are stored encrypted using bcrypt.
+The Backend used node and express to manage the restful API. Mongoose is used to perform data sanitization and validation as well as handle the connections to a Mongo-Atlas DB. There are routes for CRUD operations for users and tasks. Emails are sent out when tasks are due and when users signup / cancel accounts. As well as the ability to upload a user avatar is desired. JSON webtokens are used for authentication and are verified using express middleware. Passwords are stored encrypted using bcrypt.
 
 * ### **Frontend**
-The Frontend was started more recently as I began learning how to use Next.js with React, which i already had experience with. The frontend is server-side rendered and loads the tasks and user data from MongoDB, then loads them as React props before rendering and sending to the cient. There are still features to implement to compliment the backened routes I have implemented. I have used a proxy server to handle cookies, which I use to send JSONWebTokens for user authentication. 
-
+The Frontend was started more recently as I began learning how to use Next.js with React, which i already had experience with. The frontend is server-side rendered and loads the tasks and user data from MongoDB, then loads them as React props before rendering and sending to the client. There are still features to implement to compliment the backend routes I have implemented. I have used a proxy server to handle cookies, which I use to send JSONWebTokens for user authentication. 
 
 ## **Features to add**
 * Sorting features, to allow users to sort their tasks by their desired field
@@ -42,6 +41,7 @@ The Frontend was started more recently as I began learning how to use Next.js wi
 * Many more I am sure I could spend years on but I likely move onto another project after this. 
 
 `
+
 
 export default function Home() {
   return (
