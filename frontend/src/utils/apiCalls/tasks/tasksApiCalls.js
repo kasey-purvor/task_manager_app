@@ -38,6 +38,7 @@ export const getTask = async (_id) => {
         method: "GET",
         headers: {
             // Authorization: `Bearer ${token}`,
+
         },
     }).catch((error) => console.log(error));
     const task = await response.json();
@@ -48,16 +49,18 @@ export const getTask = async (_id) => {
 
 export const deleteTask = async (_id) => {
     await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
+
         method: "DELETE",
         headers: {
             // Authorization: `Bearer ${token}`,
+            "auth-token": token
         },
     }).catch((error) => alert(error));
     
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
+    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
             // Authorization: `Bearer ${token}`,
@@ -72,7 +75,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 };
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch(`${frontendApiUrl}/api/tasks`, {
+    await fetch(`${backendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
             // Authorization: `Bearer ${token}`,
