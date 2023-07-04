@@ -4,7 +4,6 @@ export const getAllTaskIds = async () => {
     const response = await fetch(`${backenedUrl}/api/allTasks`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json",
         },
     }).catch((error) => console.log(error));
     const allTasks = await response.json()

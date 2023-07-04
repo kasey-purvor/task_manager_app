@@ -4,23 +4,23 @@ const Task = require("../models/task");
 const taskRouter = express.Router();
 const auth = require("../middleware/authentication");
 
-// inital routes to allow vercel build 
+// inital routes to allow vercel build
 taskRouter.get("/api/allTasks", async (req, res) => {
-    try{
+    try {
         const allTasks = await Task.find({});
-        console.log("dynamic page  is collecting all tasks")
+        console.log("dynamic page  is collecting all tasks");
         // console.log(allTasks)
         res.status(200).send(allTasks);
-    } catch(e){
-        console.log(e)
+    } catch (e) {
+        console.log(e);
         res.status(400).send(e);
     }
-})
-// inital routes to allow vercel build 
+});
+// inital routes to allow vercel build
 taskRouter.get("/api/getTask/:id", async (req, res) => {
     const _id = req.params.id;
     try {
-        const task = await Task.findOne({ _id : _id });
+        const task = await Task.findOne({ _id: _id });
         if (!task) {
             return res.status(404).send("task not found");
         }
@@ -28,22 +28,21 @@ taskRouter.get("/api/getTask/:id", async (req, res) => {
     } catch (e) {
         res.status(400).send(e);
     }
-})
+});
 taskRouter.post("/api/tasks", auth, async (req, res) => {
     const task = new Task({
         ...req.body,
         owner: req.user._id, // req.user is created in the Auth middleware if you are wondering how that works.
     });
-    const cookie = req.cookies
+    const cookie = req.cookies;
     try {
         await task.save();
-        res.status(201).send(cookie );
+        res.status(201).send(cookie);
     } catch (error) {
         console.log(error);
         res.status(400).send(error);
     }
 });
-
 
 // sort=field_asc
 taskRouter.get("/api/tasks", auth, async (req, res) => {
@@ -57,7 +56,7 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
         sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1;
     }
     try {
-        console.log("get all tasks route called")
+        console.log("get all tasks route called");
         // const tasks = await Task.find({
         //     owner: req.user._id,
         //     completed: match.completed
@@ -65,7 +64,6 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
         // res.status(200).send(tasks)
         // orrr you could use the new ref property from mongoose
         await req.user.populate({
-            
             path: "tasks",
             match, // populate is useful here as it allows req's without a "completed" param. It returns all tasks instead of giving errors
             options: {
@@ -74,10 +72,12 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
                 sort,
             },
         });
-        console.log("got all Tasks successfully");
+        console.log("got all Tasks successfully", req.user.tasks);
+        res.set("content-type", "application/json; charset=utf-8");
+        // console.log(res.getHeaders());
         res.status(200).send(req.user.tasks);
     } catch (e) {
-        console.log("getAllTasks failed", e)
+        console.log("getAllTasks failed", e);
         res.status(400).send(e);
     }
 });
@@ -89,7 +89,9 @@ taskRouter.get("/api/tasks/:id", auth, async (req, res) => {
         if (!task) {
             return res.status(404).send("task not found");
         }
-        console.log("got specific task successfully")
+        console.log("got specific task successfully");
+        res.set("content-type", "application/json; charset=utf-8");
+        // console.log(res.getHeaders());
         res.status(201).send(task);
     } catch (e) {
         res.status(400).send(e);
