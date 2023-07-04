@@ -1,5 +1,6 @@
 import { createProxyMiddleware, responseInterceptor } from "http-proxy-middleware";
 import Cookies from "cookies";
+import zlib from "zlib";
 
 if (process.env.NEXT_PUBLIC_DEV === "true") {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV;
@@ -9,6 +10,7 @@ if (process.env.NEXT_PUBLIC_DEV === "true") {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
 const proxyResHAndler = (proxyRes, req, res) => {
+    console.log("Proxy Server hardcoded Token: ", token);
     const pathName = req.url;
     var userCookieEdit = false;
     if (pathName === "/api/users" || pathName === "/api/users/login") {
@@ -16,29 +18,39 @@ const proxyResHAndler = (proxyRes, req, res) => {
     }
     var data = [];
     proxyRes.on("data", (chunk) => {
-        console.log("concating data");
+        // console.log("concating data");
         data.push(chunk);
-        console.log("data response", data);
+        // console.log("data response", data);
     });
-    proxyRes.on("end", async () => {
+    proxyRes.on("end", () => {
+        console.log("end of data event hit ");
+        // console.log(Buffer.concat(data).toString("hex"))
+        let decompressedData = ""
+        process.env.NEXT_PUBLIC_DEV === "false" ?  decompressedData = zlib.gunzipSync(Buffer.concat(data)) : decompressedData = data;
+
         try {
-            const dataJSON = JSON.parse(Buffer.concat(data).toString("utf-8"));
-            dataJSON ? console.log(" data returned from API") : null;
-            const cookies = new Cookies(req, res);
+            // console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
+            const dataJSON = JSON.parse(decompressedData.toString("utf8"));
+            // console.log("Data has been turned into JSON ", dataJSON);
+            dataJSON ? console.log(" data was returned from backend API") : null;
+
             if (userCookieEdit) {
-                console.log("setting cookie to client");
+                const cookies = new Cookies(req, res);
+                console.log("setting cookie to client. Token = ", dataJSON.token);
                 cookies.set("auth-token", dataJSON.token, {
                     httpOnly: true,
                     sameSite: "lax",
                     // domain: "localhost",
                     path: "/",
                 });
+                console.log("cookie set to client");
             }
+            console.log("Proxy Sever Response", dataJSON);
             res.send(dataJSON);
-            console.log("Proxy Sever Response", dataJSON)
             return dataJSON;
         } catch (e) {
             res.send(e);
+            return e;
         }
     });
 };
@@ -53,6 +65,9 @@ const pathRewrite = (path, req) => {
 };
 const proxy = createProxyMiddleware({
     target: backendApiUrl,
+    timeout: 10000,
+    proxyTimeout: 10000,
+    logger: console,
     autoRewrite: false,
     changeOrigin: true,
     selfHandleResponse: true,
@@ -61,5 +76,12 @@ const proxy = createProxyMiddleware({
     },
     pathRewrite: pathRewrite,
     onProxyRes: proxyResHAndler,
+    on: {
+        error: (err, req, res) => {
+            console.log("error", err);
+            console.log("req headers", req.headers);
+            console.log("res headers", res.headers);
+        },
+    },
 });
 export default proxy;
