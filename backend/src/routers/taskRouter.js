@@ -8,7 +8,7 @@ const auth = require("../middleware/authentication");
 taskRouter.get("/api/allTasks", async (req, res) => {
     try {
         const allTasks = await Task.find({});
-        console.log("dynamic page  is collecting all tasks");
+        console.log("dynamic page is collecting all tasks");
         // console.log(allTasks)
         res.status(200).send(allTasks);
     } catch (e) {
@@ -37,7 +37,8 @@ taskRouter.post("/api/tasks", auth, async (req, res) => {
     const cookie = req.cookies;
     try {
         await task.save();
-        res.status(201).send(cookie);
+        console.log("task saved successfully");
+        res.status(201).send(task);
     } catch (error) {
         console.log(error);
         res.status(400).send(error);
@@ -56,7 +57,7 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
         sort[sort_def[0]] = sort_def[1] === "asc" ? 1 : -1;
     }
     try {
-        console.log("get all tasks route called");
+        // console.log("get all tasks route called");
         // const tasks = await Task.find({
         //     owner: req.user._id,
         //     completed: match.completed
@@ -72,7 +73,7 @@ taskRouter.get("/api/tasks", auth, async (req, res) => {
                 sort,
             },
         });
-        console.log("got all Tasks successfully", req.user.tasks);
+        console.log("got all Tasks successfully");
         res.set("content-type", "application/json; charset=utf-8");
         // console.log(res.getHeaders());
         res.status(200).send(req.user.tasks);
@@ -125,7 +126,7 @@ taskRouter.delete("/api/tasks/:id", auth, async (req, res) => {
         await task.remove();
         console.log("deleted task successfully");
         res.status(302);
-        res.send("task Removed");
+        res.send({ message: "task Removed"});
     } catch (e) {
         res.send(e);
     }

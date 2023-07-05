@@ -4,9 +4,10 @@ const Cookies = require('cookies')
 const auth = async (req, res, next) => {
     try {
         const cookies = new Cookies(req, res);
-        console.log("Auth middleware. Req Headers: ", req.headers)
+        // console.log("Auth middleware. Req Headers: ", req.headers)
 
         const token = await req.headers["auth-token"]
+        // console.log("token provided to auth middleware", token)
         // console.log("attempt to authenticate with:", token)
         const decoded = await jwt.verify(token, process.env.JSON_WEB_TOKEN_KEY )
         // console.log("decoded", decoded) 

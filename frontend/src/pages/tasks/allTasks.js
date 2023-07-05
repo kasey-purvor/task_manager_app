@@ -6,7 +6,7 @@ import Head from 'next/head';
 export async function getServerSideProps() {
     try {
         const allTasks = await getAllTasks();
-        console.log("All Tasks Page. Logging task data", allTasks);
+        // console.log("All Tasks Page. Logging task data", allTasks);
         return {
             props: {
                 allTasks,

@@ -60,7 +60,7 @@ export const deleteTask = async (_id) => {
 };
 
 export const editTask = async (_id, taskDescription, completed, due) => {
-    await fetch(`${backendApiUrl}/api/tasks/${_id}`, {
+    await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
             // Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ export const editTask = async (_id, taskDescription, completed, due) => {
 };
 
 export const saveTask = async (taskDescription, due) => {
-    await fetch(`${backendApiUrl}/api/tasks`, {
+    await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "POST",
         headers: {
             // Authorization: `Bearer ${token}`,
