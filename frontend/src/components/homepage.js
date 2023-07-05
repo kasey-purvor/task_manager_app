@@ -7,7 +7,7 @@ import {getAllTasks} from '@/utils/apiCalls/tasks/tasksApiCalls'
 const text = `# **Task Manager App**  
 ### *By Kasey Purvor*
 ### [Please see Github Page](https://github.com/kasey-purvor/task_manager_app)
-### ***Please feel free to click on the Task page and view, edit, add or delete the tasks. Please be patient as the docker backend may have gone to sleep and may take a few seconds to start up.*** 
+### ***Please Signup and create a task to try the CRUD operations. Please be patient as the docker backend may have gone to sleep and may take a few seconds to start up.*** 
 ## **Project Description**
 
 #### What started as a node.js course, building a backend API, that I slowly completed part time - turned into a full stack project with a Next.JS / React frontend. Hence the rather large initial commit. It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a full stack project using the technologies I am interested in.
@@ -27,7 +27,7 @@ const text = `# **Task Manager App**
     * Cookies
     
 ### **Updates!** 
-* While I implement my proxy server handling of cookies I have created one "universal user" meaning everyone can view and manage the same set of tasks as the same user. Cookies handling has been test and works, but the implementation was delayed by my last error - caused my my backend docker container sending data in GZIP compressed format.  
+* http-only cookies have been implmented and are now used for user identification. Now a user must first signup or login to perform CRUD operations to tasks.   
 ## **Structure**
 * ### **Backend**
 The Backend used node and express to manage the restful API. Mongoose is used to perform data sanitization and validation as well as handle the connections to a Mongo-Atlas DB. There are routes for CRUD operations for users and tasks. Emails are sent out when tasks are due and when users signup / cancel accounts. As well as the ability to upload a user avatar is desired. JSON webtokens are used for authentication and are verified using express middleware. Passwords are stored encrypted using bcrypt.
