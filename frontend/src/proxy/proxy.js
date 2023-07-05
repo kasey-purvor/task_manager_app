@@ -26,14 +26,14 @@ const proxyResHAndler = (proxyRes, req, res) => {
         // console.log("end of data event hit ");
         let decompressedData = "";
         const concattedData = Buffer.concat(data);
-        // console.log("hex String data", concattedData.toString("hex"))
+        console.log("hex String data", concattedData.toString("hex"))
         const gzipCheck = concattedData.toString("hex").slice(0, 4);
         console.log("gzipped data check? 1f8b?: ", gzipCheck);
         gzipCheck === "1f8b" ? (decompressedData = zlib.gunzipSync(concattedData)) : (decompressedData = data);
 
         // console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
         const dataJSON = JSON.parse(decompressedData.toString("utf8"));
-        // console.log("Data has been turned into JSON ", dataJSON);
+        console.log("Data has been turned into JSON ", dataJSON);
         dataJSON ? console.log(" data was returned from backend API") : null;
 
         if (userCookieEdit) {
@@ -47,7 +47,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
             });
             console.log("cookie set to client");
         }
-        // console.log("Proxy Sever Response", dataJSON);
+        console.log("Proxy Sever Response", dataJSON);
         res.send(dataJSON);
         return dataJSON;
     });
