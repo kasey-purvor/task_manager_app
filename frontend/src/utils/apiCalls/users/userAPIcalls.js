@@ -1,13 +1,15 @@
 if(process.env.NEXT_PUBLIC_DEV === 'true') {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV
+    var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS
 } else {
     var token = process.env.NEXT_PUBLIC_TOKEN_PROD
+    var frontendApiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const loginUser = async (email , password) => {
     try {
-        const response = await fetch(`/api/signin`, {
+        const response = await fetch(`${frontendApiUrl}/api/signin`, {
         method: "POST",
         headers: {
             // Authorization: `Bearer ${token}`,
@@ -25,7 +27,7 @@ export const loginUser = async (email , password) => {
 }
 export const signUpUser = async (name, email, password, age) => {
     try {
-        await fetch(`/api/signup`, {
+        await fetch(`${frontendApiUrl}/api/signup`, {
             method: "POST",
             headers: {
                 // Authorization: `Bearer ${token}`,
