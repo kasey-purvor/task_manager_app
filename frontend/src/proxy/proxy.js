@@ -10,7 +10,6 @@ if (process.env.NEXT_PUBLIC_DEV === "true") {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
 const proxyResHAndler = (proxyRes, req, res) => {
-    console.log("Proxy Server hardcoded Token: ", token);
     const pathName = req.url;
     var userCookieEdit = false;
     if (pathName === "/api/users" || pathName === "/api/users/login") {
@@ -18,9 +17,8 @@ const proxyResHAndler = (proxyRes, req, res) => {
     }
     var data = [];
     proxyRes.on("data", (chunk) => {
-        console.log("concating data");
+        // console.log("concating data");
         data.push(chunk);
-        // console.log("data response", data);
     });
     proxyRes.on("end", () => {
         // console.log("end of data event hit ");
@@ -45,9 +43,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
                 // domain: "localhost",
                 path: "/",
             });
-            console.log("cookie set to client");
         }
-        // console.log("Proxy Sever Response", dataJSON);
         res.send(dataJSON);
         return dataJSON;
     });

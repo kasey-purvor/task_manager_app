@@ -3,9 +3,10 @@ import { getAllTasks } from '@/utils/apiCalls/tasks/tasksApiCalls';
 import Head from 'next/head';
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     try {
-        const allTasks = await getAllTasks();
+        const cookies = context.req.headers.cookie;
+        const allTasks = await getAllTasks(cookies);
         // console.log("All Tasks Page. Logging task data", allTasks);
         return {
             props: {
