@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
             // console.log("no cookies")
              notification = "Please create a user or login."
             allTasks = [{
-                description: "Please create a user or login tp play perform CRUD operations on tasks.",
+                description: "Please create a user or login to play perform CRUD operations on tasks.",
                 completed: "",
                 owner: "",
                 due: new Date(),
