@@ -3,9 +3,9 @@ import { deleteTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
 import { useRouter } from 'next/router';
 export default function Task({ due, description, owner, createdAt, updatedAt, completed, id }) {
     const router = useRouter();
-    const handleTaskDeleteButton = (e) => {
+    const handleTaskDeleteButton = async (e) => {
         e.preventDefault
-        deleteTask(id);
+        await deleteTask(id);
         setTimeout(2000, router.push(`/tasks/allTasks/?reload=${Date.now()}`))
         
     };

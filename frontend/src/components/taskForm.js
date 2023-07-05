@@ -11,7 +11,7 @@ export default function TaskForm({ taskData, formEdit }) {
 
     async function handleEdit(e) {
         e.preventDefault();
-        editTask(taskData._id, taskDescription, completed, due).then(alert('Task Updated'));
+        await editTask(taskData._id, taskDescription, completed, due).then(alert('Task Updated'));
         router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
     async function handleDelete(e) {
