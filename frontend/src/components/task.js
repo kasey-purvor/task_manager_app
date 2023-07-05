@@ -6,7 +6,7 @@ export default function Task({ due, description, owner, createdAt, updatedAt, co
     const handleTaskDeleteButton = (e) => {
         e.preventDefault
         deleteTask(id);
-        setTimeout(500, router.push(`/tasks/allTasks/?reload=${Date.now()}`))
+        setTimeout(2000, router.push(`/tasks/allTasks/?reload=${Date.now()}`))
         
     };
     return (
