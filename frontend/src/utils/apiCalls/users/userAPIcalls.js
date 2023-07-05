@@ -7,7 +7,7 @@ const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
 export const loginUser = async (email , password) => {
     try {
-        const response = await fetch(`${frontendApiUrl}/api/signin`, {
+        const response = await fetch(`/api/signin`, {
         method: "POST",
         headers: {
             // Authorization: `Bearer ${token}`,
@@ -25,7 +25,7 @@ export const loginUser = async (email , password) => {
 }
 export const signUpUser = async (name, email, password, age) => {
     try {
-        await fetch(`${frontendApiUrl}/api/signup`, {
+        await fetch(`/api/signup`, {
             method: "POST",
             headers: {
                 // Authorization: `Bearer ${token}`,
