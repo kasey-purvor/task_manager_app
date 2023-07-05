@@ -33,7 +33,7 @@ export const getAllTasks = async () => {
     }
 };
 export const cookieTest = async () => {
-    const response = await fetch(`/api/tasks`, {
+    const response = await fetch(`${frontendApiUrl}/api/tasks`, {
         method: "GET",
     }).catch((error) => console.log(error));
     const allTasks = await response.json();
