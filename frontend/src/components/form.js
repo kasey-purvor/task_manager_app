@@ -13,9 +13,8 @@ export default function Form({ formType }) {
     const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        formType === 'signIn' ? response = await loginUser(email, password): response = await signUpUser(name, email, password, age);
-        alert(response);
-        // router.push('/');
+        formType === 'signIn' ? await loginUser(email, password): await signUpUser(name, email, password, age);
+        router.push('/tasks/allTasks');
         // sessionStorage.setItem('token', token);
     };
     const renderedForm = (

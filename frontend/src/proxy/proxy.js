@@ -65,9 +65,9 @@ const proxy = createProxyMiddleware({
     autoRewrite: false,
     changeOrigin: true,
     selfHandleResponse: true,
-    headers: {
-        "auth-token": token,
-    },
+    // headers: {
+    //     "auth-token": token,
+    // },
     pathRewrite: pathRewrite,
     onProxyRes: proxyResHAndler,
     on: {

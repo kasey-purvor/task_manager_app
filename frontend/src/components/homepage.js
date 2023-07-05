@@ -48,14 +48,6 @@ export default function Home() {
   return (
     <main className={styles.homepage}>
         <PageContainer >
-            <button
-                type="button"
-                onClick={
-                    getAllTasks
-                }
-            >
-                cookie test 
-            </button>
             <MarkdownRenderer markdown={text} className='bg-orange-300 rounded-3xl p-5 max-w-3xl'/>
        </PageContainer>
     </main>
