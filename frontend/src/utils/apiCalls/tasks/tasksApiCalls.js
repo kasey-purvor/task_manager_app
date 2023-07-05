@@ -11,12 +11,12 @@ if(process.env.NEXT_PUBLIC_DEV === 'true') {
 }
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS
 
-export const getAllTasks = async () => {
-    console.log("FRONTEND URL is", frontendApiUrl)
+export const getAllTasks = async (cookies) => {
     try {
         const response = await fetch(`${frontendApiUrl}/api/tasks`, {
             method: "GET",
             headers: {
+                'Cookie': cookies,
                 // Authorization: `Bearer ${token}`,
             },
             // signal
@@ -25,14 +25,12 @@ export const getAllTasks = async () => {
             throw new Error(error);
         });
         const allTasks = await response.json();
-        console.log("task api call fetch worked", allTasks)
         return allTasks;
     } catch (e) {
         console.log("error with getAllTasks api call: ", e)
         return e;
     }
 };
-
 export const getTask = async (_id) => {
     const response = await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "GET",

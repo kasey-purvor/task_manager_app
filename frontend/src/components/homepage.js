@@ -2,6 +2,7 @@ import Image from 'next/image'
 import MarkdownRenderer from 'react-markdown-renderer'
 import styles from  './homepage.module.css'
 import PageContainer from '@/components/pageContainer'
+import {getAllTasks} from '@/utils/apiCalls/tasks/tasksApiCalls'
 
 const text = `# **Task Manager App**  
 ### *By Kasey Purvor*

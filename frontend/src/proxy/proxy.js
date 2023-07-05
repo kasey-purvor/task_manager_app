@@ -10,7 +10,6 @@ if (process.env.NEXT_PUBLIC_DEV === "true") {
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
 const proxyResHAndler = (proxyRes, req, res) => {
-    console.log("Proxy Server hardcoded Token: ", token);
     const pathName = req.url;
     var userCookieEdit = false;
     if (pathName === "/api/users" || pathName === "/api/users/login") {
@@ -18,22 +17,21 @@ const proxyResHAndler = (proxyRes, req, res) => {
     }
     var data = [];
     proxyRes.on("data", (chunk) => {
-        console.log("concating data");
+        // console.log("concating data");
         data.push(chunk);
-        // console.log("data response", data);
     });
     proxyRes.on("end", () => {
         // console.log("end of data event hit ");
         let decompressedData = "";
         const concattedData = Buffer.concat(data);
-        console.log("hex String data", concattedData.toString("hex"))
+        // console.log("hex String data", concattedData.toString("hex"))
         const gzipCheck = concattedData.toString("hex").slice(0, 4);
         console.log("gzipped data check? 1f8b?: ", gzipCheck);
         gzipCheck === "1f8b" ? (decompressedData = zlib.gunzipSync(concattedData)) : (decompressedData = data);
 
         // console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
         const dataJSON = JSON.parse(decompressedData.toString("utf8"));
-        console.log("Data has been turned into JSON ", dataJSON);
+        // console.log("Data has been turned into JSON ", dataJSON);
         dataJSON ? console.log(" data was returned from backend API") : null;
 
         if (userCookieEdit) {
@@ -45,9 +43,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
                 // domain: "localhost",
                 path: "/",
             });
-            console.log("cookie set to client");
         }
-        console.log("Proxy Sever Response", dataJSON);
         res.send(dataJSON);
         return dataJSON;
     });
@@ -69,9 +65,9 @@ const proxy = createProxyMiddleware({
     autoRewrite: false,
     changeOrigin: true,
     selfHandleResponse: true,
-    headers: {
-        "auth-token": token,
-    },
+    // headers: {
+    //     "auth-token": token,
+    // },
     pathRewrite: pathRewrite,
     onProxyRes: proxyResHAndler,
     on: {

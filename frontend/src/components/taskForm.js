@@ -11,17 +11,17 @@ export default function TaskForm({ taskData, formEdit }) {
 
     async function handleEdit(e) {
         e.preventDefault();
-        editTask(taskData._id, taskDescription, completed, due).then(alert('Task Updated'));
+        await editTask(taskData._id, taskDescription, completed, due)
         router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
     async function handleDelete(e) {
         e.preventDefault();
-        await deleteTask(taskData._id).then(alert('Task Deleted'));
+        await deleteTask(taskData._id)
         router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
     async function handleSave(e) {
         e.preventDefault();
-        await saveTask(taskDescription, due).then(alert('Task Saved'));
+        await saveTask(taskDescription, due)
         router.push(`/tasks/allTasks/?reload=${Date.now()}`);
     }
 

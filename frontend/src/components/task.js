@@ -3,10 +3,10 @@ import { deleteTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
 import { useRouter } from 'next/router';
 export default function Task({ due, description, owner, createdAt, updatedAt, completed, id }) {
     const router = useRouter();
-    const handleTaskDeleteButton = (e) => {
+    const handleTaskDeleteButton = async (e) => {
         e.preventDefault
-        deleteTask(id);
-        router.push(`/tasks/allTasks/?reload=${Date.now()}`);
+        await deleteTask(id);
+        setTimeout(500,router.push(`/tasks/allTasks/?reload=${Date.now()}`))
     };
     return (
         <tr className='border-solid border-b border-gray-400 hover:bg-green-100'>

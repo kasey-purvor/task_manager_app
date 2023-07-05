@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema(
         },
         age: {
             type: Number,
-            required: true,
+            // required: true,
             default: 0,
             validate(value) {
                 if (value < 0) {
@@ -26,23 +26,23 @@ const userSchema = mongoose.Schema(
             required: true,
             unique: true,
             trim: true,
-            lowercase: true,
-            validate(value) { // this is a custom validator 
-                if (!validator.isEmail(value)) { // here the npm validator is used to check for valid emails 
-                    throw new Error("Email is invalid");
-                }
-            }
+            // lowercase: true,
+            // validate(value) { // this is a custom validator 
+            //     if (!validator.isEmail(value)) { // here the npm validator is used to check for valid emails 
+            //         throw new Error("Email is invalid");
+            //     }
+            // }
         },
         password: {
             type: String,
             required: true,
             trim: true,
-            minLength: 6,
-            validate(value) {
-                if (value.toLowerCase().includes("password")) {
-                    throw new Error("Password cannot contain the word 'password'")
-                }
-            }
+            // minLength: 6,
+            // validate(value) {
+            //     if (value.toLowerCase().includes("password")) {
+            //         throw new Error("Password cannot contain the word 'password'")
+            //     }
+            // }
         },
         tokens: [{
             token: {
