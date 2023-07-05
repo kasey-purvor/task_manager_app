@@ -32,7 +32,14 @@ export const getAllTasks = async () => {
         return e;
     }
 };
-
+export const cookieTest = async () => {
+    const response = await fetch(`/api/tasks`, {
+        method: "GET",
+    }).catch((error) => console.log(error));
+    const allTasks = await response.json();
+    console.log("get all tasks cookie test call")
+    return allTasks;
+}
 export const getTask = async (_id) => {
     const response = await fetch(`${frontendApiUrl}/api/tasks/${_id}`, {
         method: "GET",

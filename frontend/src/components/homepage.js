@@ -2,6 +2,7 @@ import Image from 'next/image'
 import MarkdownRenderer from 'react-markdown-renderer'
 import styles from  './homepage.module.css'
 import PageContainer from '@/components/pageContainer'
+import {cookieTest} from '@/utils/apiCalls/tasks/tasksApiCalls'
 
 const text = `# **Task Manager App**  
 ### *By Kasey Purvor*
@@ -47,6 +48,14 @@ export default function Home() {
   return (
     <main className={styles.homepage}>
         <PageContainer >
+            <button
+                type="button"
+                onClick={
+                    cookieTest
+                }
+            >
+                cookie test 
+            </button>
             <MarkdownRenderer markdown={text} className='bg-orange-300 rounded-3xl p-5 max-w-3xl'/>
        </PageContainer>
     </main>
