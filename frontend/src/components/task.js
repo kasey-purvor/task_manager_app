@@ -6,8 +6,7 @@ export default function Task({ due, description, owner, createdAt, updatedAt, co
     const handleTaskDeleteButton = async (e) => {
         e.preventDefault
         await deleteTask(id);
-        setTimeout(2000, router.push(`/tasks/allTasks/?reload=${Date.now()}`))
-        
+        router.push(`/tasks/allTasks/?reload=${Date.now()}`)
     };
     return (
         <tr className='border-solid border-b border-gray-400 hover:bg-green-100'>
