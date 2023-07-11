@@ -32,20 +32,26 @@ const proxyResHAndler = (proxyRes, req, res) => {
         // console.log("decompressed Data in JSON form utf8", decompressedData.toString("utf8"))
         const dataJSON = JSON.parse(decompressedData.toString("utf8"));
         // console.log("Data has been turned into JSON ", dataJSON);
-        dataJSON ? console.log(" data was returned from backend API") : null;
+        dataJSON ? console.log("proxy server:  data was returned from backend API") : null;
 
         if (userCookieEdit) {
             const cookies = new Cookies(req, res);
             console.log("setting cookie to client. Token = ", dataJSON.token);
-            cookies.set("auth-token", dataJSON.token, {
+            console.log("proxy Server: data returned from user route: ", dataJSON)
+            cookies.set("auth-token", dataJSON.token.token, {
                 httpOnly: true,
                 sameSite: "lax",
                 // domain: "localhost",
                 path: "/",
             });
+            res.send(dataJSON.user);
+            return
+        } else {
+            res.send(dataJSON)
         }
-        res.send(dataJSON);
-        return dataJSON;
+        
+
+
     });
 };
 const pathRewrite = (path, req) => {

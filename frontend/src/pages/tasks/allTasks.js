@@ -15,7 +15,7 @@ export async function getServerSideProps(context) {
              notification = "Please create a user or login."
             allTasks = [{
                 description: "Please create a user or login to perform CRUD operations on tasks.",
-                completed: "",
+                completed: "This will disapear when you are logged in",
                 owner: "",
                 due: new Date(),
                 createdAt: new Date(),

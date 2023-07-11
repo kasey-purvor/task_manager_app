@@ -1,10 +1,9 @@
 import { getAllTaskIds, getSingleTask }  from '@/utils/functions/tasksFunctions';
 // import { getTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
 import { useState } from 'react';
-import { getFakeTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
-
-import TaskEditForm from '@/components/taskForm';
+import TaskForm from '@/components/taskForm';
 import PageContainer from '@/components/pageContainer';
+
 export async function getStaticPaths() {
     const allTaskIds = await getAllTaskIds();
     return {
@@ -26,7 +25,7 @@ export default function TaskDetailsPage({ taskData }) {
 
     return (
         <PageContainer>    
-            <TaskEditForm
+            <TaskForm
                 taskData={taskData}
                 formEdit={true}
             />

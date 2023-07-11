@@ -8,6 +8,7 @@ export default function TaskList({ allTasks }) {
                 description={task.description}
                 completed={task.completed}
                 createdAt={task.createdAt}
+                updatedAt={task.updatedAt}
                 key={task._id}
                 id={task._id}
             />
