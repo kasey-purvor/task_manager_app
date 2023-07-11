@@ -8,12 +8,12 @@ export default async function handler(req, res) {
     const cookies = new Cookies(req, res);
     const token = cookies.get("auth-token");
     if(token) {
-        console.log("cookie recieved from client") 
+        console.log("dynamic api: cookie recieved from client") 
         req.headers["auth-token"] = token
     } else {
-        console.log("cookie not recieved")
+        console.log("dynamic api: cookie not recieved")
     } 
-    console.log("Has the req header been set? auth-token",req.headers["auth-token"])
+    console.log(" API route: Has the req header been passed from client? auth-token",req.headers["auth-token"])
     req.headers.cookies = ""
     await proxy(req, res, (err) => {
         if (err) {

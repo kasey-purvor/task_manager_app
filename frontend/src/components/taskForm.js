@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { deleteTask, editTask, saveTask } from '@/utils/apiCalls/tasks/tasksApiCalls';
+import { formatDates } from '@/utils/functions/generalFunctions';
 
 export default function TaskForm({ taskData, formEdit }) {
     const [completed, setCompleted] = useState(taskData.completed || false);
@@ -29,7 +30,7 @@ export default function TaskForm({ taskData, formEdit }) {
         var dueDataHTMLLine = (
             <>
                 <p className='text-medium text-gray-800 mt-2'>Task Due: </p>
-                <p className='text-sm text-gray-500'>{due}</p>
+                <p className='text-sm text-gray-500'>{formatDates(due)}</p>
             </>
         );
     }
@@ -40,16 +41,17 @@ export default function TaskForm({ taskData, formEdit }) {
             <div className=' hover:bg-orange-400 border-orange-400 rounded-3xl p-3'>
                 <p className='text-lg text-center'>Task Details</p>
                 <p className='text-medium text-gray-800 mt-2'>Task Created: </p>
-                <p className='text-sm text-gray-500'>{taskData.createdAt}</p>
+                <p className='text-sm text-gray-500'>{formatDates(taskData.createdAt)}</p>
                 <p className='text-medium text-gray-800 mt-2'>Task Updated: </p>
-                <p className='text-sm text-gray-500'>{taskData.updatedAt}</p>
+                <p className='text-sm text-gray-500'>{formatDates(taskData.updatedAt)}</p>
                 {dueDataHTMLLine}
             </div>
         );
         var taskCompletedSection = (
             <div>
-                <p className='text-medium text-gray-800 mt-2'>Completed</p>
+                <p className='text-medium text-gray-800 mt-2 flex'>Completed?</p>
                 {/* perhaps consider using a select dropdown instead?  */}
+                
                 <input
                     type='checkbox'
                     name='completed'
@@ -59,6 +61,8 @@ export default function TaskForm({ taskData, formEdit }) {
                     placeholder={`${due}`}
                     aria-describedby='hs-input-helper-text'
                 />
+                {completed && `${formatDates(taskData.updatedAt)}`}
+                
                 <p
                     className='text-sm text-gray-500 mt-2'
                     id='hs-input-helper-text'

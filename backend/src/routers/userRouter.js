@@ -72,7 +72,7 @@ userRouter.post("/api/users", async (req, res) => {
         
         // sendWelcomeEmail(req.body.name, req.body.email);
         console.log("User Signup Successfull");
-        res.status(201).send(token);
+        res.status(201).send({token, user});
     } catch (error) {
         console.log("User Singup failed",error)
         res.status(400).send(error);
@@ -93,7 +93,7 @@ userRouter.post("/api/users/login", async (req, res) => {
         //  });
         //  console.log(token.token)
         console.log("User SignIn Successfull");
-        res.status(200).send(token);
+        res.status(200).send({token, user});
     } catch (e) {
         console.log("User SingIn failed: ", e.message)
         res.status(400).send({ "error": e });
