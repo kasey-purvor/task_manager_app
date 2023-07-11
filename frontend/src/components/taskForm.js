@@ -49,8 +49,9 @@ export default function TaskForm({ taskData, formEdit }) {
         );
         var taskCompletedSection = (
             <div>
-                <p className='text-medium text-gray-800 mt-2 flex'>Completed?</p>
+                <p className='text-medium text-gray-800 mt-2 '>Completed?</p>
                 {/* perhaps consider using a select dropdown instead?  */}
+                <p className="text-sm text-gray-500 mb-2" >{completed && `${formatDates(taskData.updatedAt)}`}</p>
                 
                 <input
                     type='checkbox'
@@ -61,7 +62,8 @@ export default function TaskForm({ taskData, formEdit }) {
                     placeholder={`${due}`}
                     aria-describedby='hs-input-helper-text'
                 />
-                {completed && `${formatDates(taskData.updatedAt)}`}
+                <br/>
+                
                 
                 <p
                     className='text-sm text-gray-500 mt-2'

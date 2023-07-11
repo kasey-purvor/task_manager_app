@@ -11,10 +11,25 @@ const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
 const proxyResHAndler = (proxyRes, req, res) => {
     const pathName = req.url;
+    const cookies = new Cookies(req, res);
     var userCookieEdit = false;
+
     if (pathName === "/api/users" || pathName === "/api/users/login") {
         userCookieEdit = true;
+    } else if (pathName === "/api/users/logout") {
+        try {
+            cookies.set("auth-token", "", {
+                expires: Date.now(),
+                httpOnly: true,
+                sameSite: "lax",
+                path: "/",
+            });
+            console.log("proxy has deleted cookies ");
+        } catch (e) {
+            console.log(e);
+        }
     }
+
     var data = [];
     proxyRes.on("data", (chunk) => {
         // console.log("concating data");
@@ -35,9 +50,8 @@ const proxyResHAndler = (proxyRes, req, res) => {
         dataJSON ? console.log("proxy server:  data was returned from backend API") : null;
 
         if (userCookieEdit) {
-            const cookies = new Cookies(req, res);
             console.log("setting cookie to client. Token = ", dataJSON.token);
-            console.log("proxy Server: data returned from user route: ", dataJSON)
+            console.log("proxy Server: data returned from user route: ", dataJSON);
             cookies.set("auth-token", dataJSON.token.token, {
                 httpOnly: true,
                 sameSite: "lax",
@@ -45,13 +59,10 @@ const proxyResHAndler = (proxyRes, req, res) => {
                 path: "/",
             });
             res.send(dataJSON.user);
-            return
+            return;
         } else {
-            res.send(dataJSON)
+            res.send(dataJSON);
         }
-        
-
-
     });
 };
 const pathRewrite = (path, req) => {

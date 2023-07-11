@@ -1,5 +1,6 @@
 import TaskList from '@/components/taskList';
 import { getAllTasks } from '@/utils/apiCalls/tasks/tasksApiCalls';
+import { logoutUser } from '@/utils/apiCalls/users/userAPIcalls';
 import Head from 'next/head';
 
 
@@ -14,8 +15,8 @@ export async function getServerSideProps(context) {
             // console.log("no cookies")
              notification = "Please create a user or login."
             allTasks = [{
-                description: "Please create a user or login to perform CRUD operations on tasks.",
-                completed: "This will disapear when you are logged in",
+                description: "Please CREATE A USER or LOGIN to perform CRUD operations on tasks. This is a TEMPORARY SOLLUTION.",
+                completed: undefined,
                 owner: "",
                 due: new Date(),
                 createdAt: new Date(),

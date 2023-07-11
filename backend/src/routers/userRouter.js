@@ -6,6 +6,7 @@ const { sendWelcomeEmail, sendGoodbyeEmail } = require("../emails/account");
 const auth = require("../middleware/authentication");
 const multer = require("multer");
 const sharp = require("sharp"); // sharp is used to alter image properties such as format and size.
+const Cookies = require("cookies");
 
 //upload user avatar, multer allows you to attach images and other files to the req object or save to the file system
 const upload = multer({
@@ -99,24 +100,27 @@ userRouter.post("/api/users/login", async (req, res) => {
         res.status(400).send({ "error": e });
     }
 });
-//logout user
-userRouter.post("/api/users/logout", auth, async (req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((token) => {
-            return req.token !== token.token;
-        });
-        req.user.save();
-        res.send("logged out");
-    } catch (e) {
-        res.status(500).send();
-    }
-});
+//logout user !! have discontinued as logout may as well logout the user from all devices as http-only cookies are session only 
+// userRouter.post("/api/users/logout", auth, async (req, res) => {
+//     try {
+//         req.user.tokens = req.user.tokens.filter((token) => {
+//             return req.token !== token.token;
+//         });
+//         req.user.save();
+//         res.send("logged out");
+//     } catch (e) {
+//         res.status(500).send();
+//     }
+// });
 
-userRouter.post("/api/users/logoutall", auth, async (req, res) => {
+userRouter.post("/api/users/logout", auth, async (req, res) => {
     try {
         req.user.tokens = [];
         await req.user.save();
-        res.status(200).send("logged out of all devices");
+        const user = req.user
+        console.log("user successfully logged out")
+        res.clearCookies();
+        res.status(200).send({user});
     } catch (e) {
         res.status(500).send(e);
     }

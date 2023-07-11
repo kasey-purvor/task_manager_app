@@ -1,3 +1,5 @@
+import {useRouter} from "next/router";
+
 if (process.env.NEXT_PUBLIC_DEV === "true") {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV;
     var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS;
@@ -49,3 +51,15 @@ export const signUpUser = async (name, email, password, age) => {
         alert(e);
     }
 };
+
+export const logoutUser = async () => {
+    try {
+        // const router = useRouter();
+        const response = await fetch(`${frontendApiUrl}/api/users/logout`, {
+            method: "POST"
+        }).catch((error) => console.log(error));
+        // router.push("/login");
+    } catch(error) {
+        console.log("Error logging out: ", error);
+    }
+}

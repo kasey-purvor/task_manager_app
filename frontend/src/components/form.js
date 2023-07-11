@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { loginUser, signUpUser } from '@/utils/apiCalls/users/userAPIcalls';
 import { useRouter } from 'next/router';
 export default function Form({ formType }) {
+    const [userData, setUserData] = useState(null)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -12,9 +13,10 @@ export default function Form({ formType }) {
     let response = undefined;
     const router = useRouter();
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        formType === 'signIn' ? await loginUser(email, password): await signUpUser(name, email, password, age);
-        router.push('/tasks/allTasks');
+        e.preventDefault();    
+        formType === 'signIn' ? await loginUser(email, password) : await signUpUser(name, email, password, age);
+        // userData ? 
+        // router.push('/tasks/allTasks')
         // sessionStorage.setItem('token', token);
     };
     const renderedForm = (

@@ -34,7 +34,7 @@ export const data = {
                 },
                 {
                     desc: "Name",
-                    additionalInfo: "Please enter your name",
+                    additionalInfo: "(Optional) Please enter your name",
                     formLineType: "text",
                     placeholderText: "Enter your name"
                 },
