@@ -1,5 +1,5 @@
-import Homepage from '@/components/homepage'
-
+import Homepage from "@/components/homepage";
+const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 const text = `# **Task Manager App**
 ## By Kasey Purvor
 #### What started as a node.js course building a backend API, that I slowly completed part time, turned into something I wanted to finish and add additional features as well as a Next.JS / React front end. Hence the rather large initial commit containing most of the backened. I am not an experienced frontend developer, it's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exersize in bringing together a full stack project using the technologies I am most interested in.
@@ -36,12 +36,22 @@ I am in the process of implementing the use of http-only cookies to store the JS
 * Email notification settings for tasks
 * Many more I am sure I could spend years on but I likely move onto another project after this. 
 
-`
+`;
+export async function getServerSideProps() {
+    try {
+        await fetch(`${backendApiUrl}/api/allTasks`);
+        return {
+            props: {},
+        };
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 export default function Home() {
-  return (
-    <main>
-        <Homepage/>
-    </main>
-  )
+    return (
+        <main>
+            <Homepage />
+        </main>
+    );
 }
