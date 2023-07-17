@@ -39,7 +39,8 @@ I am in the process of implementing the use of http-only cookies to store the JS
 `;
 export async function getServerSideProps() {
     try {
-        await fetch(`${backendApiUrl}/api/allTasks`);
+        console.log("Index page is waking up backend");
+        fetch(`${backendApiUrl}/api/allTasks`); // this is just a dummy call to wake up the backend when the homepage is loaded. no props are assigned. 
         return {
             props: {},
         };
