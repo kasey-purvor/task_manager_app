@@ -8,14 +8,22 @@ export async function getServerSideProps(context) {
     try {
         const cookies = context.req.headers.cookie;
         let allTasks
-        let notification
         if(cookies) {
             allTasks = await getAllTasks(cookies)
+            if (allTasks.length === 0) {
+                allTasks.push({
+                    "description": "Demonstration Task. Add your own to remove this message.",
+                    "completed": false,
+                    "owner": "",
+                    "due": `${new Date()}`,
+                    "createdAt": `${new Date()}`,
+                    "updatedAt": `${new Date()}`
+                }) 
+            }
         } else{
             // console.log("no cookies")
-             notification = "Please create a user or login."
             allTasks = [{
-                description: "Please CREATE A USER or LOGIN to perform CRUD operations on tasks. This is a TEMPORARY SOLLUTION.",
+                description: "Please CREATE A USER or LOGIN to use this page.",
                 completed: undefined,
                 owner: "",
                 due: new Date(),

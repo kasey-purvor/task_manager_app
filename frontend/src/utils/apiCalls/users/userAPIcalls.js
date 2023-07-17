@@ -62,3 +62,35 @@ export const logoutUser = async () => {
         console.log("Error logging out: ", error);
     }
 }
+
+export const editUser = async (name, email, password, age) => {
+    try {
+        const res = await fetch(`${frontendApiUrl}/api/users/me`, {
+            method : "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                age: age,
+            })
+        })
+        console.log("UserAPI edit call: User data: ");
+        return await res.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteUser = async () => {
+    try {
+        const res = await fetch(`${frontendApiUrl}/api/users/delete`, {
+            method : "DELETE"
+        }).catch((error) => console.log(error));
+    } catch (e) {
+        console.log(e);
+    }
+    
+}

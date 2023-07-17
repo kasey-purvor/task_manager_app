@@ -139,17 +139,20 @@ userRouter.patch("/api/users/me", auth, async (req, res) => {
         });
         await req.user.save();
         res.send(req.user);
+        console.log("User updated successfully", req.body);
     } catch (e) {
+        console.log("User update failed", e.message);
         res.send(e);
     }
 });
 // find and delete Users
-userRouter.delete("/api/users/me", auth, async (req, res) => {
+userRouter.delete("/api/users/delete", auth, async (req, res) => {
     try {
         await req.user.remove();
-        sendGoodbyeEmail(req.user.name, req.user.email);
+        // sendGoodbyeEmail(req.user.name, req.user.email);
         // await Task.deleteMany({owner: req.user._id}) // this has been replaced my mongoose middleware.
-        res.send("user deleted");
+        console.log("User deleted successfully");
+        res.send({});
     } catch (e) {
         res.send(e);
     }

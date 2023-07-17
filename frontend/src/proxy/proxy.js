@@ -11,12 +11,13 @@ const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
 
 const proxyResHAndler = (proxyRes, req, res) => {
     const pathName = req.url;
+    console.log("PROXY PATHNAME", pathName);
     const cookies = new Cookies(req, res);
     var userCookieEdit = false;
 
     if (pathName === "/api/users" || pathName === "/api/users/login") {
         userCookieEdit = true;
-    } else if (pathName === "/api/users/logout") {
+    } else if (pathName === "/api/users/logout" || pathName === "/api/users/delete") {
         try {
             cookies.set("auth-token", "", {
                 expires: Date.now(),

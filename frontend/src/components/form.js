@@ -27,7 +27,7 @@ export default function Form({ formType }) {
         <>
             <div className="flex justify-center"> 
                 <span className="text-lg text-justify-center">{formType === "signIn" && "Please enter your Username & Password"}</span>
-                <span className="text-lg text-justify-center">{formType !== "signIn" && "Please enter a Username and Password."}</span>
+                <span className="text-lg text-justify-center">{formType !== "signIn" && "Please create a Username and Password."}</span>
                 
             </div>
             <br />
