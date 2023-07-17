@@ -10,7 +10,7 @@ const text = `# **Task Manager App**
 ### ***Please Signup and create a task to try the CRUD operations. __Please be patient__ as the docker backend may have gone to sleep and may take a few seconds to start up - causing you first attempt to load the tasks page to timeout. A page refresh may be required.*** 
 ## **Project Description**
 
-#### What started as a node.js course, building a backend API, that I slowly completed part time - turned into a full stack project with a Next.JS / React frontend. Hence the rather large initial commit. It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a full stack project using the technologies I am interested in.
+#### What started as a node.js course, building a backend API, that I slowly completed part time - turned into a full stack project with a Next.JS / React frontend. Hence the rather large initial commit. It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a complex full stack project using the technologies I am interested in.
 ### **Technologies**
 * **Backend**
     * Node.js
@@ -22,6 +22,7 @@ const text = `# **Task Manager App**
 * **Frontend**
     * Next.js / Vercel
     * React
+    * http-only cookies
     * http-proxy
     * Tailwind.css
     * Cookies

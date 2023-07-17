@@ -1,24 +1,36 @@
-import FormLine from './formLine';
-import { data } from '../data/data';
-import { useState } from 'react';
-import { loginUser, signUpUser } from '@/utils/apiCalls/users/userAPIcalls';
-import { useRouter } from 'next/router';
+import FormLine from "./formLine";
+import { data } from "../data/data";
+import { useState } from "react";
+import { loginUser, signUpUser } from "@/utils/apiCalls/users/userAPIcalls";
+import { useRouter } from "next/router";
 export default function Form({ formType }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [age, setAge] = useState('');
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [age, setAge] = useState("");
+    // const [userData, setUserData] = useState({});
+
     const formData = data.forms.filter((form) => form.type === formType)[0];
     let response = undefined;
-    const router = useRouter();
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        formType === 'signIn' ? await loginUser(email, password): await signUpUser(name, email, password, age);
-        router.push('/tasks/allTasks');
-        // sessionStorage.setItem('token', token);
+        formType === "signIn" ? response = await loginUser(email, password) : response = await signUpUser(name, email, password, age);
+        // const userData = await response.json();
+        console.log(response)
+        sessionStorage.setItem("userData", JSON.stringify(response)); 
+        router.push(`/tasks/allTasks/?reload=${Date.now()}`);
+
     };
     const renderedForm = (
         <>
+            <div className="flex justify-center"> 
+                <span className="text-lg text-justify-center">{formType === "signIn" && "Please enter your Username & Password"}</span>
+                <span className="text-lg text-justify-center">{formType !== "signIn" && "Please create a Username and Password."}</span>
+                
+            </div>
+            <br />
             <FormLine
                 id={formData.formRows[0].desc}
                 desc={formData.formRows[0].desc}
@@ -36,8 +48,8 @@ export default function Form({ formType }) {
                 placeholderText={formData.formRows[1].placeholderText}
                 onTextChange={setPassword}
             />
-            <br/>
-            {formType === 'signUp' && (
+            <br />
+            {formType === "signUp" && (
                 <>
                     <FormLine
                         id={formData.formRows[2].desc}
@@ -47,7 +59,7 @@ export default function Form({ formType }) {
                         placeholderText={formData.formRows[2].placeholderText}
                         onTextChange={setName}
                     />
-                    <br/>
+                    <br />
                     <FormLine
                         id={formData.formRows[3].desc}
                         desc={formData.formRows[3].desc}
@@ -61,14 +73,14 @@ export default function Form({ formType }) {
         </>
     );
     return (
-        <main className='p-6 max-h-auto  mx-auto sm:max-w-3xl sm:w-3/4 md:w-1/2 bg-orange-300  rounded-3xl'>
+        <main className="p-6 max-h-auto  mx-auto sm:max-w-3xl sm:w-3/4 md:w-1/2 bg-orange-300  rounded-3xl">
             {renderedForm}
-            <div className='flex justify-center'>
+            <div className="flex justify-center">
                 <button
-                    className=' bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-4 mx-4 rounded-3xl mt-2'
+                    className=" bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-4 mx-4 rounded-3xl mt-2"
                     onClick={handleSubmit}
                 >
-                    {formType === 'signIn' ? 'Sign In' : 'Sign Up'}
+                    {formType === "signIn" ? "Sign In" : "Sign Up"}
                 </button>
             </div>
         </main>

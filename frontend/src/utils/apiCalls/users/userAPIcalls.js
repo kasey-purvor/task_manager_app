@@ -1,3 +1,5 @@
+import {useRouter} from "next/router";
+
 if (process.env.NEXT_PUBLIC_DEV === "true") {
     var token = process.env.NEXT_PUBLIC_TOKEN_DEV;
     var frontendApiUrl = process.env.NEXT_PUBLIC_FRONTEND_ADDRESS;
@@ -49,3 +51,46 @@ export const signUpUser = async (name, email, password, age) => {
         alert(e);
     }
 };
+
+export const logoutUser = async () => {
+    try {
+        // const router = useRouter();
+        const response = await fetch(`${frontendApiUrl}/api/users/logout`, {
+            method: "POST"
+        }).catch((error) => console.log(error));
+    } catch(error) {
+        console.log("Error logging out: ", error);
+    }
+}
+
+export const editUser = async (name, email, password, age) => {
+    try {
+        const res = await fetch(`${frontendApiUrl}/api/users/me`, {
+            method : "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                age: age,
+            })
+        })
+        console.log("UserAPI edit call: User data: ");
+        return await res.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteUser = async () => {
+    try {
+        const res = await fetch(`${frontendApiUrl}/api/users/delete`, {
+            method : "DELETE"
+        }).catch((error) => console.log(error));
+    } catch (e) {
+        console.log(e);
+    }
+    
+}

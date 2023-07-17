@@ -1,11 +1,15 @@
 import Head from "next/head";
-export default function Account(user) {
+import PageContainer from "@/components/pageContainer";
+import Account from "@/components/account";
+export default function AccountPage(user) {
     return (
         <div>
             <Head>
                 <title>Account</title>
             </Head>
-            <h1>Account Page</h1>
+            <PageContainer>
+                <Account />
+            </PageContainer>
         </div>
     );
 }
