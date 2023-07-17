@@ -58,7 +58,6 @@ export const logoutUser = async () => {
         const response = await fetch(`${frontendApiUrl}/api/users/logout`, {
             method: "POST"
         }).catch((error) => console.log(error));
-        // router.push("/login");
     } catch(error) {
         console.log("Error logging out: ", error);
     }

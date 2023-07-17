@@ -1,13 +1,22 @@
 import { logoutUser } from "@/utils/apiCalls/users/userAPIcalls";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 export default function Navbar({ isLoggedIn }) {
+    const [userLogedIn, setUserLoggedIn] = useState(false);
     const router = useRouter();
     const handleLogout = async () => {
-        await logoutUser(); 
+        await logoutUser();
         router.push("/signin");
     };
+    useEffect(() => {
+        const userData = sessionStorage.getItem("userData");
+        // console.log("Navbar useEffect Says:", userData);
+        if (userData) {
+            setUserLoggedIn(true);
+        }
+    });
     return (
         <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 bg-gray-700">
             <nav
@@ -58,43 +67,55 @@ export default function Navbar({ isLoggedIn }) {
                     className="hidden basis-full grow sm:block"
                 >
                     <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:pl-5">
-                        <Link href="/tasks/newTask">
-                            <button className="bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-3 mr-1  rounded-3xl">
-                                New Task
-                            </button>
-                        </Link>
-                        <Link
-                            className="font-bold text-blue-500"
-                            href="/tasks/allTasks"
-                            aria-current="page"
-                        >
-                            Tasks
-                        </Link>
-                        <Link
+                        {userLogedIn && (
+                            <Link href="/tasks/newTask">
+                                <button className="bg-green-700 hover:bg-grey-400 text-white font-bold py-2 px-3 mr-1  rounded-3xl">
+                                    New Task
+                                </button>
+                            </Link>
+                        )}
+                        {userLogedIn && (
+                            <Link
+                                className="font-bold text-blue-500"
+                                href="/tasks/allTasks"
+                                aria-current="page"
+                            >
+                                Tasks
+                            </Link>
+                        )}
+                        {userLogedIn && (
+                            <Link
                             className="font-medium text-gray-200 hover:text-gray-500"
                             href="/account"
                         >
                             Account
                         </Link>
-                        <Link
+                        )}
+                        {!userLogedIn && (
+                            <Link
                             className="font-medium text-gray-200 hover:text-gray-500"
                             href="/signup"
                         >
                             Sign Up
                         </Link>
-                        <Link
+                        )}
+                        {!userLogedIn && (
+                            <Link
                             className="font-medium text-gray-200 hover:text-gray-500"
                             href="/signin"
                         >
                             Sign In
                         </Link>
-                        <button
+                        )}
+                        {userLogedIn && (
+                            <button
                             className="font-medium text-gray-200 hover:text-gray-500"
                             //   href='/signin'
                             onClick={handleLogout}
                         >
                             Logout
                         </button>
+                        )}
                     </div>
                 </div>
             </nav>

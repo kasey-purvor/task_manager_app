@@ -58,6 +58,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
                 // domain: "localhost",
                 path: "/",
             });
+            delete dataJSON.user.tokens
             res.send(dataJSON.user);
             return;
         } else {
