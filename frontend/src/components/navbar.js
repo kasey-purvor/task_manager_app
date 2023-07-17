@@ -8,7 +8,9 @@ export default function Navbar({ isLoggedIn }) {
     const router = useRouter();
     const handleLogout = async () => {
         await logoutUser();
-        router.push("/signin");
+        sessionStorage.clear();
+        setUserLoggedIn(false);
+        router.push(`/signin/?reload=${Date.now()}`);
     };
     useEffect(() => {
         const userData = sessionStorage.getItem("userData");
@@ -85,36 +87,36 @@ export default function Navbar({ isLoggedIn }) {
                         )}
                         {userLogedIn && (
                             <Link
-                            className="font-medium text-gray-200 hover:text-gray-500"
-                            href="/account"
-                        >
-                            Account
-                        </Link>
+                                className="font-medium text-gray-200 hover:text-gray-500"
+                                href="/account"
+                            >
+                                Account
+                            </Link>
                         )}
                         {!userLogedIn && (
                             <Link
-                            className="font-medium text-gray-200 hover:text-gray-500"
-                            href="/signup"
-                        >
-                            Sign Up
-                        </Link>
+                                className="font-medium text-gray-200 hover:text-gray-500"
+                                href="/signup"
+                            >
+                                Sign Up
+                            </Link>
                         )}
                         {!userLogedIn && (
                             <Link
-                            className="font-medium text-gray-200 hover:text-gray-500"
-                            href="/signin"
-                        >
-                            Sign In
-                        </Link>
+                                className="font-medium text-gray-200 hover:text-gray-500"
+                                href="/signin"
+                            >
+                                Sign In
+                            </Link>
                         )}
                         {userLogedIn && (
                             <button
-                            className="font-medium text-gray-200 hover:text-gray-500"
-                            //   href='/signin'
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </button>
+                                className="font-medium text-gray-200 hover:text-gray-500"
+                                //   href='/signin'
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
                         )}
                     </div>
                 </div>

@@ -51,7 +51,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
 
         if (userCookieEdit) {
             console.log("setting cookie to client. Token = ", dataJSON.token);
-            console.log("proxy Server: data returned from user route: ", dataJSON);
+            // console.log("proxy Server: data returned from user route: ", dataJSON);
             cookies.set("auth-token", dataJSON.token.token, {
                 httpOnly: true,
                 sameSite: "lax",
