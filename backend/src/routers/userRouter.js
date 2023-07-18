@@ -146,7 +146,7 @@ userRouter.patch("/api/users/me", auth, async (req, res) => {
     }
 });
 // find and delete Users
-userRouter.delete("/api/users/delete", auth, async (req, res) => {
+userRouter.delete("/api/users/me", auth, async (req, res) => {
     try {
         await req.user.remove();
         // sendGoodbyeEmail(req.user.name, req.user.email);
