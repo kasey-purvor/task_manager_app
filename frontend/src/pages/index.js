@@ -1,5 +1,6 @@
 import Homepage from "@/components/homepage";
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
+import {useEffect, useState} from "react";
 const text = `# **Task Manager App**
 ## By Kasey Purvor
 #### What started as a node.js course building a backend API, that I slowly completed part time, turned into something I wanted to finish and add additional features as well as a Next.JS / React front end. Hence the rather large initial commit containing most of the backened. I am not an experienced frontend developer, it's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exersize in bringing together a full stack project using the technologies I am most interested in.
@@ -37,19 +38,23 @@ I am in the process of implementing the use of http-only cookies to store the JS
 * Many more I am sure I could spend years on but I likely move onto another project after this. 
 
 `;
-export async function getServerSideProps() {
-    try {
-        console.log("Index page is waking up backend");
-        fetch(`${backendApiUrl}/api/allTasks`); // this is just a dummy call to wake up the backend when the homepage is loaded. no props are assigned. 
-        return {
-            props: {},
-        };
-    } catch (e) {
-        console.log(e);
-    }
-}
+// export async function getServerSideProps() {
+//     try {
+//         console.log("Index page is waking up backend");
+//         await fetch(`${backendApiUrl}/api/allTasks`); // this is just a dummy call to wake up the backend when the homepage is loaded. no props are assigned. 
+//         return {
+//             props: {},
+//         };
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }
+
 
 export default function Home() {
+    useEffect(() => {
+        fetch(`${backendApiUrl}/api/allTasks`);
+    }, [])
     return (
         <main>
             <Homepage />
