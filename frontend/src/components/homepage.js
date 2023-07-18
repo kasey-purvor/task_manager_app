@@ -7,10 +7,13 @@ import {getAllTasks} from '@/utils/apiCalls/tasks/tasksApiCalls'
 const text = `# **Task Manager App**  
 ### *By Kasey Purvor*
 ### [Please see Github Page](https://github.com/kasey-purvor/task_manager_app)
-### ***Please Signup and create a task. You can manage your tasks and account from the relevant pages. __Please be patient__ , the backend may have gone to sleep causing an error. A page refresh may be required.*** 
+### ***Please Signup and create a task. You can manage your tasks and account from the relevant pages. A simplified sequence diagram is sown below but this does not cover next.js rendering and re-rendering processes***
 ## **Project Description**
 
-#### What started as a backend API, that I slowly part time, turned into a full stack project with a Next.JS / React frontend. It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a complex full stack project using the technologies I am interested in.
+#### What started as a backend API, that I slowly part time, turned into a full stack project with a Next.JS / React frontend.
+A user can create an account and create a digital "To Do" list with full CRUD control of their user and tasks. Authentication is done using JWT http-only cookies and a htp-proxy server. 
+
+It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a complex full stack project using the technologies I am interested in.
 ### **Technologies**
 * **Backend**
     * Node.js
