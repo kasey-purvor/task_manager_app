@@ -1,6 +1,8 @@
 import Homepage from "@/components/homepage";
 const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
+
 import {useEffect, useState} from "react";
+import sequenceDiagram from './../../public/sequence_diagram.jpg'
 const text = `# **Task Manager App**
 ## By Kasey Purvor
 #### What started as a node.js course building a backend API, that I slowly completed part time, turned into something I wanted to finish and add additional features as well as a Next.JS / React front end. Hence the rather large initial commit containing most of the backened. I am not an experienced frontend developer, it's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exersize in bringing together a full stack project using the technologies I am most interested in.
@@ -38,18 +40,24 @@ I am in the process of implementing the use of http-only cookies to store the JS
 * Many more I am sure I could spend years on but I likely move onto another project after this. 
 
 `;
-// export async function getServerSideProps() {
-//     try {
-//         console.log("Index page is waking up backend");
-//         await fetch(`${backendApiUrl}/api/allTasks`); // this is just a dummy call to wake up the backend when the homepage is loaded. no props are assigned. 
-//         return {
-//             props: {},
-//         };
-//     } catch (e) {
-//         console.log(e);
-//     }
-// }
-
+export async function getStaticProps() {
+    // Get the path to the image file
+    console.log(sequenceDiagram);
+    // const imagePath = path.join(process.cwd(), 'public', 'my-image.jpg');
+  
+    // // Read the image file
+    // const imageData = fs.readFileSync(imagePath);
+  
+    // // Encode the image data as a base64 string
+    // const imageBase64 = imageData.toString('base64');
+  
+    // Pass the image data to the page component as a prop
+    return {
+      props: {
+        // imageBase64,
+      },
+    };
+  }
 
 export default function Home() {
     useEffect(() => {
@@ -58,6 +66,9 @@ export default function Home() {
     return (
         <main>
             <Homepage />
+            <div className=" bg-green-200 h-auto w-auto  flex justify-center py-6 sm:px-6 rounded-3xl sm:m-2 md:m-5">
+            <img src={sequenceDiagram.src} alt="Sequence Diagram"/>
+            </div>
         </main>
     );
 }
