@@ -84,8 +84,8 @@ userSchema.pre('remove', async function ( next ) {
 userSchema.pre('save', async function(next) {
     const user = this;
     if (user.isModified('password')) {
-        console.log("Password has been changed")
         user.password = await bcrypt.hash(user.password, 8)
+        console.log("Password has been encypted and changed / saved")
     }
     next()
 })
