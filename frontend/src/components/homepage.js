@@ -11,7 +11,7 @@ const text = `# **Task Manager App**
 ## **Project Description**
 
 #### What started as a **node/express/mongoDB** backend API, that I slowly part time, turned into a full stack project with a Next.JS / React frontend.
-A user can create an account and create a digital "To Do" list with full CRUD control of their user and tasks. Route authentication is done using **JWT** **http-only cookies** and a **htp-proxy server** sending a jwt to **express middleware** for verification, the jwt toen key stored as an **.env variable**. Passwords are stored **hashed using bcrypt**. 
+A user can create an account and create a digital "To Do" list with full CRUD control of their user and tasks. Route authentication is done using **JWT** **http-only cookies** and a **htp-proxy server** sending a jwt to **express middleware** for verification, the jwt token key stored as an **.env variable**. Passwords are stored **hashed using bcrypt**. 
 
 It's fair to say this wont be winning any awards to artistic design. But the project has been a valuable exercise in bringing together a complex full stack project using the technologies I am interested in.
 ### **Technologies**
