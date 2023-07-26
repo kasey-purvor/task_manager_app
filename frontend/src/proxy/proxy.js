@@ -14,7 +14,7 @@ const proxyResHAndler = (proxyRes, req, res) => {
     console.log("PROXY PATHNAME", pathName);
     const cookies = new Cookies(req, res);
     var userCookieEdit = false;
-
+    res.setHeader("access-control-allow-origin", "*");
     if (pathName === "/api/users" || pathName === "/api/users/login") {
         userCookieEdit = true;
     } else if (pathName === "/api/users/logout" || pathName === "/api/users/delete") {
